@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  Color _lightGreen = Colors.green.shade100;
+  Color _bluegrey = Colors.blueGrey.shade700;
   Color __lightGrey = Colors.grey.shade300;
   Color __darkGrey = Colors.grey.shade600;
 
   ThemeData buildTheme() {
     return ThemeData(
-      canvasColor: Colors.white,
-      primaryColor: _lightGreen,
+      canvasColor: Colors.blueGrey[900],
+      primaryColor: _bluegrey,
       accentColor: __lightGrey,
       secondaryHeaderColor: __darkGrey,
       hintColor: __lightGrey,
@@ -19,7 +19,7 @@ class MyTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: _lightGreen),
+          borderSide: BorderSide(color: _bluegrey),
         ),
       ),
       buttonTheme: ButtonThemeData(
