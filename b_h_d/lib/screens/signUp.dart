@@ -32,8 +32,8 @@ class _SignUpState extends State<SignUp> {
                         }
                         return null;
                       },
-                      decoration: MyFormStyles().textFormFieldInputDecoration("Full name"),
-                      style: MyFormStyles().textFormStyle(),
+                      decoration: MyFormStyles.textFormFieldInputDecoration("Full name"),
+                      style: MyFormStyles.textFormStyle(),
                     ),
                     SizedBox(
                       height: 20,
@@ -45,8 +45,8 @@ class _SignUpState extends State<SignUp> {
                         }
                         return null;
                       },
-                      decoration: MyFormStyles().textFormFieldInputDecoration("Email"),
-                      style: MyFormStyles().textFormStyle(),
+                      decoration: MyFormStyles.textFormFieldInputDecoration("Email"),
+                      style: MyFormStyles.textFormStyle(),
                     ),
                     SizedBox(
                       height: 20,
@@ -58,8 +58,8 @@ class _SignUpState extends State<SignUp> {
                         }
                         return null;
                       },
-                      decoration: MyFormStyles().textFormFieldInputDecoration("Password"),
-                      style: MyFormStyles().textFormStyle(),
+                      decoration: MyFormStyles.textFormFieldInputDecoration("Password"),
+                      style: MyFormStyles.textFormStyle(),
                     ),
                     SizedBox(
                       height: 20,
@@ -68,7 +68,7 @@ class _SignUpState extends State<SignUp> {
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Processing Data')),
+                              const SnackBar(content: Text('Processindg Data')),
                             );
                           }
                         },
