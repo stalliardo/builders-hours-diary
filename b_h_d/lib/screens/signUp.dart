@@ -1,5 +1,7 @@
 import 'package:b_h_d/styles/text/formStyles.dart';
+import 'package:b_h_d/utils/stringFormatting.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
@@ -10,6 +12,9 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  String _emptyFieldError = "Fields cannot be blank";
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +33,12 @@ class _SignUpState extends State<SignUp> {
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Please enter some text";
+                          return _emptyFieldError;
                         }
                         return null;
                       },
-                      decoration: MyFormStyles.textFormFieldInputDecoration("Full name"),
+                      decoration: InputDecoration(labelText: "Full name"),
+                      // decoration: MyFormStyles.textFormFieldInputDecoration("Full name"),
                       style: MyFormStyles.textFormStyle(),
                     ),
                     SizedBox(
@@ -41,11 +47,47 @@ class _SignUpState extends State<SignUp> {
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Please enter some text";
+                          return _emptyFieldError;
                         }
                         return null;
                       },
-                      decoration: MyFormStyles.textFormFieldInputDecoration("Email"),
+                      decoration: InputDecoration(labelText: "Email"),
+                      style: MyFormStyles.textFormStyle(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return _emptyFieldError;
+                        }
+                        if (value.length < 8) {
+                          return "Passwords must be 8 a minimum of 8 chars";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: "Password"),
+                      obscureText: true,
+                      style: MyFormStyles.textFormStyle(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      controller: _confirmPasswordController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return _emptyFieldError;
+                        }
+                        if (value != _passwordController.text) {
+                          return "Passwords must match";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: "Confirm Password"),
+                      obscureText: true,
                       style: MyFormStyles.textFormStyle(),
                     ),
                     SizedBox(
@@ -54,11 +96,56 @@ class _SignUpState extends State<SignUp> {
                     TextFormField(
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return "Please enter some text";
+                          return _emptyFieldError;
                         }
                         return null;
                       },
-                      decoration: MyFormStyles.textFormFieldInputDecoration("Password"),
+                      decoration: InputDecoration(labelText: "Payment frequency"),
+                      style: MyFormStyles.textFormStyle(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return _emptyFieldError;
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: "Day rate"),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
+                      style: MyFormStyles.textFormStyle(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return _emptyFieldError;
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: "Paid hours in work day"),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
+                      style: MyFormStyles.textFormStyle(),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return _emptyFieldError;
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: "Retention amount %"),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
                       style: MyFormStyles.textFormStyle(),
                     ),
                     SizedBox(
@@ -81,3 +168,10 @@ class _SignUpState extends State<SignUp> {
     );
   }
 }
+
+
+// TODO - Add appropriate valiadtions for each field
+// TODO - Add a dropDown Button for the payment frequency field
+// TODO - Handle onSave clicked
+// TODO - Add button theme to MyTheme class
+// TODO - Convert the numeric values that are still strings to doubles as this is the data type they will be saved in the DB as

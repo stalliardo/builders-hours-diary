@@ -1,29 +1,43 @@
 import 'package:flutter/material.dart';
 
 class MyTheme {
-  Color _bluegrey = Colors.blueGrey.shade700;
-  Color __lightGrey = Colors.grey.shade300;
-  Color __darkGrey = Colors.grey.shade600;
+  Color bluegrey = Colors.blueGrey.shade700;
+  Color lightGrey = Colors.grey.shade300;
+  Color darkGrey = Colors.grey.shade600;
 
   ThemeData buildTheme() {
     return ThemeData(
       canvasColor: Colors.blueGrey[900],
-      primaryColor: _bluegrey,
-      accentColor: __lightGrey,
-      secondaryHeaderColor: __darkGrey,
-      hintColor: __lightGrey,
+      primaryColor: bluegrey,
+      accentColor: lightGrey,
+      secondaryHeaderColor: darkGrey,
+      hintColor: lightGrey,
+
+      // inputs.....
       inputDecorationTheme: InputDecorationTheme(
+        labelStyle: TextStyle(color: Colors.blue),
+        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: __lightGrey),
+          borderSide: BorderSide(color: lightGrey),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: _bluegrey),
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: Colors.blue,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: MyTheme().bluegrey,
+          ),
         ),
       ),
+
+      // Buttons......
       buttonTheme: ButtonThemeData(
-        buttonColor: __darkGrey,
+        buttonColor: darkGrey,
         padding: EdgeInsets.symmetric(horizontal: 20),
         minWidth: 200,
         height: 40,

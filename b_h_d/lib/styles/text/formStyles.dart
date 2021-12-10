@@ -1,3 +1,4 @@
+import 'package:b_h_d/utils/mytheme.dart';
 import 'package:flutter/material.dart';
 
 class MyFormStyles {
@@ -5,6 +6,7 @@ class MyFormStyles {
     return InputDecoration(
       border: OutlineInputBorder(),
       labelText: labelText,
+      labelStyle: TextStyle(color: Colors.blue),
       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
@@ -15,7 +17,7 @@ class MyFormStyles {
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10.0),
         borderSide: BorderSide(
-          color: Colors.white,
+          color: MyTheme().bluegrey,
         ),
       ),
     );
