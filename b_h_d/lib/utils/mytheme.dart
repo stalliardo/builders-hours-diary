@@ -7,7 +7,7 @@ class MyTheme {
 
   ThemeData buildTheme() {
     return ThemeData(
-      canvasColor: Colors.blueGrey[900],
+      canvasColor: const Color(0xFF313A42),
       primaryColor: bluegrey,
       accentColor: lightGrey,
       secondaryHeaderColor: darkGrey,

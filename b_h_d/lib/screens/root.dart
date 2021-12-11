@@ -1,6 +1,7 @@
 import 'package:b_h_d/screens/home.dart';
 import 'package:b_h_d/screens/signUp.dart';
 import 'package:b_h_d/screens/splash.dart';
+import 'package:b_h_d/screens/welcome.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +18,13 @@ class _RootState extends State<Root> {
     switch (_loginState) {
       case ApplicationLoginState.unknown:
         // retVal = SplashScreen();
+        screenLoader = WelcomeScreen();
         break;
       case ApplicationLoginState.loggedOut:
-        screenLoader = SignUp();
+        // screenLoader = SignUp();
         // screenLoader = Home();
+        screenLoader = WelcomeScreen();
+
         break;
       case ApplicationLoginState.loggedIn:
         // retVal = StreamProvider<UserModel>.value(

@@ -1,3 +1,5 @@
+import 'package:b_h_d/screens/signUp.dart';
+import 'package:b_h_d/utils/customPageRoute.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -15,8 +17,17 @@ class _HomeState extends State<Home> {
         title: Text("Home"),
       ),
       body: Center(
-        child: Text("Todo"),
-      ),
+          child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            CustomPageRoute(
+              child: SignUp(),
+            ),
+          );
+        },
+        child: Text("Go to sign up"),
+      )),
     );
   }
 }
