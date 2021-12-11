@@ -13,7 +13,6 @@ class MyTheme {
       secondaryHeaderColor: darkGrey,
       hintColor: lightGrey,
 
-      // inputs.....
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.blue),
         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),

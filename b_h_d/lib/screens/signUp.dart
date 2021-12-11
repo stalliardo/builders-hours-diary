@@ -1,5 +1,6 @@
 import 'package:b_h_d/styles/text/formStyles.dart';
 import 'package:b_h_d/utils/stringFormatting.dart';
+import 'package:b_h_d/widgets/myButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,15 +20,15 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Sign Up"),
-      ),
       body: Center(
         child: Form(
             key: _formKey,
             child: ListView(
-              padding: EdgeInsets.fromLTRB(20, 60, 20, 10),
+              padding: EdgeInsets.fromLTRB(10, 30, 20, 10),
               children: [
+                MyButtons().customBackButton(() {
+                  Navigator.pop(context);
+                }),
                 Column(
                   children: <Widget>[
                     TextFormField(

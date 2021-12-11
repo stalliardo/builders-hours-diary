@@ -12,7 +12,7 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 100,
+              height: 90,
             ),
             Container(
               width: 200,
@@ -49,6 +49,7 @@ class WelcomeScreen extends StatelessWidget {
                     context,
                     CustomPageRoute(
                       child: SignUp(),
+                      parent: WelcomeScreen(),
                     ),
                   );
                 },
