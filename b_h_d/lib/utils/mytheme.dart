@@ -13,6 +13,8 @@ class MyTheme {
       secondaryHeaderColor: darkGrey,
       hintColor: lightGrey,
 
+      fontFamily: "ReadexPro",
+
       inputDecorationTheme: InputDecorationTheme(
         labelStyle: TextStyle(color: Colors.blue),
         contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 20),

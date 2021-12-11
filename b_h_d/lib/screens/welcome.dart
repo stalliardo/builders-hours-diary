@@ -38,6 +38,21 @@ class WelcomeScreen extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
+            RichText(
+              text: TextSpan(
+                text: "Welcome to only trades ",
+                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "Diary",
+                    style: TextStyle(
+                      color: Colors.orange[400],
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
             SizedBox(
               height: 30,
             ),

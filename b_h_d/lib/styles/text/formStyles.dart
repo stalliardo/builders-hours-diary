@@ -28,4 +28,8 @@ class MyFormStyles {
       color: Colors.white,
     );
   }
+
+  static TextStyle formTitle() {
+    return TextStyle(color: Colors.white, fontSize: 20);
+  }
 }
