@@ -19,4 +19,23 @@ class MyDatabase {
 
     return StatusCode.SUCCESS;
   }
+
+  Future<MyUser> getUser(String uid) async {
+    MyUser user = MyUser();
+
+    try {
+      DocumentSnapshot _doc = await _firestore.collection("users").doc(uid).get();
+
+      Map<String, dynamic> data = _doc.data() as Map<String, dynamic>;
+
+      user.uid = uid;
+      user.fullName = data["fullName"];
+      user.email = data["email"];
+      user.accountCreated = data["accountCreated"];
+    } catch (e) {
+      print(e);
+    }
+
+    return user;
+  }
 }

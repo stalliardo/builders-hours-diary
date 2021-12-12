@@ -22,14 +22,17 @@ class Auth extends ChangeNotifier {
   }
 
   Future<void> init() async {
-    _auth.userChanges().listen((user) {
+    _auth.userChanges().listen((user) async {
       if (user != null) {
         _loginState = ApplicationLoginState.loggedIn;
         // TODO build the userModel
-        _user = MyUser(uid: user.uid, email: user.email);
+        // _user = MyUser(uid: user.uid, email: user.email);
+        _user = await MyDatabase().getUser(user.uid);
+        print("user: ${_user!.fullName}");
         print("user: ${user.uid}");
       } else {
         _loginState = ApplicationLoginState.loggedOut;
+        _user = null;
       }
       notifyListeners();
     });
@@ -38,6 +41,7 @@ class Auth extends ChangeNotifier {
   Future<StatusCode> signOut() async {
     try {
       await _auth.signOut();
+      _user = null;
     } catch (e) {
       print(e);
       return StatusCode.ERROR;
@@ -63,10 +67,6 @@ class Auth extends ChangeNotifier {
   Future<StatusCode> createUserWithEmailAndPassword(String email, String password, String fullName) async {
     try {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-
-      // Use the credential to get the users new id then use that to create the user in the db...
-
-      //TODO Add the user to the DB
 
       MyUser _user = MyUser(email: email, fullName: fullName, uid: credential.user?.uid);
 
