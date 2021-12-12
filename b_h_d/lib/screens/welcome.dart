@@ -1,4 +1,5 @@
-import 'package:b_h_d/screens/signUp.dart';
+import 'package:b_h_d/screens/authentication.dart/login.dart';
+import 'package:b_h_d/screens/authentication.dart/signUp.dart';
 import 'package:b_h_d/utils/customPageRoute.dart';
 import 'package:flutter/material.dart';
 
@@ -40,21 +41,6 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: "Welcome to only trades ",
-                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: "Diary",
-                        style: TextStyle(
-                          color: Colors.orange[400],
-                        ),
-                      ),
-                    ],
-                  ),
-                  textAlign: TextAlign.center,
-                ),
                 SizedBox(
                   height: 30,
                 ),
@@ -65,7 +51,7 @@ class WelcomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         CustomPageRoute(
-                          child: SignUp(),
+                          child: Login(),
                           parent: WelcomeScreen(),
                         ),
                       );

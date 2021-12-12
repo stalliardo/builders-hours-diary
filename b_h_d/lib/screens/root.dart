@@ -1,5 +1,5 @@
 import 'package:b_h_d/screens/home.dart';
-import 'package:b_h_d/screens/signUp.dart';
+import 'package:b_h_d/screens/authentication.dart/signUp.dart';
 import 'package:b_h_d/screens/splash.dart';
 import 'package:b_h_d/screens/welcome.dart';
 import 'package:b_h_d/services/authentication.dart';
@@ -32,6 +32,7 @@ class _RootState extends State<Root> {
         //   child: LoggedIn(),
         // );
         print("Logged in called from root");
+
         screenLoader = Home();
         break;
       default:

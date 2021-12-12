@@ -1,6 +1,4 @@
-import 'package:b_h_d/screens/signUp.dart';
 import 'package:b_h_d/services/authentication.dart';
-import 'package:b_h_d/utils/customPageRoute.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -20,11 +18,10 @@ class _HomeState extends State<Home> {
       body: Column(
         children: <Widget>[
           ElevatedButton(
-            onPressed: () {
-              Auth().signOut();
-            },
-            child: Text("Log out"),
-          ),
+              onPressed: () {
+                Auth().signOut();
+              },
+              child: Text("Sign out")),
         ],
       ),
     );

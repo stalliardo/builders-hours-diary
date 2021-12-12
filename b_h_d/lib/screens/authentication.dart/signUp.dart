@@ -1,11 +1,9 @@
 import 'package:b_h_d/screens/root.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
-import 'package:b_h_d/utils/stringFormatting.dart';
 import 'package:b_h_d/widgets/myButtons.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key? key}) : super(key: key);
@@ -21,7 +19,11 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _fullNameController = TextEditingController();
+
   String _emptyFieldError = "Fields cannot be blank";
+
+  bool _isLoading = false;
+  bool _isObscure = true;
 
   @override
   void dispose() {
@@ -81,7 +83,6 @@ class _SignUpState extends State<SignUp> {
                     if (value == null || value.isEmpty) {
                       return _emptyFieldError;
                     } else if (!EmailValidator.validate(value)) {
-                      print("The email is valie");
                       return "Please enter a valid email";
                     }
 
@@ -104,8 +105,22 @@ class _SignUpState extends State<SignUp> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: "Password"),
-                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off,
+                        size: 20,
+                      ),
+                      color: Colors.white,
+                      onPressed: () {
+                        setState(() {
+                          _isObscure = !_isObscure;
+                        });
+                      },
+                    ),
+                  ),
+                  obscureText: _isObscure,
                   style: MyFormStyles.textFormStyle(),
                 ),
                 SizedBox(
@@ -122,8 +137,22 @@ class _SignUpState extends State<SignUp> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: "Confirm password"),
-                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _isObscure ? Icons.visibility : Icons.visibility_off,
+                        size: 20,
+                      ),
+                      color: Colors.white,
+                      onPressed: () {
+                        setState(() {
+                          _isObscure = !_isObscure;
+                        });
+                      },
+                    ),
+                  ),
+                  obscureText: _isObscure,
                   style: MyFormStyles.textFormStyle(),
                 ),
                 SizedBox(
@@ -190,6 +219,9 @@ class _SignUpState extends State<SignUp> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        setState(() {
+                          _isLoading = true;
+                        });
                         StatusCode _result = await Auth().createUserWithEmailAndPassword(_emailController.text, _passwordController.text, _fullNameController.text);
 
                         if (_result == StatusCode.SUCCESS) {
@@ -198,11 +230,28 @@ class _SignUpState extends State<SignUp> {
                         } else {
                           // TODO display error message
                         }
+
+                        setState(() {
+                          _isLoading = false;
+                        });
                       }
                     },
-                    child: Text("Submit"),
+                    child: Text("Register"),
                   ),
-                )
+                ),
+
+                _isLoading
+                    ? Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 20,
+                          ),
+                          CircularProgressIndicator(
+                            value: null,
+                          ),
+                        ],
+                      )
+                    : SizedBox.shrink()
               ],
             ),
           ),
@@ -211,11 +260,3 @@ class _SignUpState extends State<SignUp> {
     ));
   }
 }
-
-
-// TODO - Add appropriate valiadtions for each field
-// TODO - Add a dropDown Button for the payment frequency field
-// TODO - Handle onSave clicked
-// TODO - Add button theme to MyTheme class
-// TODO - Convert the numeric values that are still strings to doubles as this is the data type they will be saved in the DB as
-// TODO - Change the font size of the inputs, they're massive.

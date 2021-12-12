@@ -36,6 +36,14 @@ class MyTheme {
         ),
       ),
 
+      // textTheme: TextTheme(
+      //   bodyText1: TextStyle(),
+      //   bodyText2: TextStyle(),
+      // ).apply(
+      //   bodyColor: Colors.white,
+      //   // displayColor: Colors.blue,
+      // ),
+
       // Buttons......
       buttonTheme: ButtonThemeData(
         buttonColor: darkGrey,

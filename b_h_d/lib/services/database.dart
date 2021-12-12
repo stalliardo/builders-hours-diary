@@ -7,7 +7,11 @@ class MyDatabase {
 
   Future<StatusCode> addUser(MyUser user) async {
     try {
-      await _firestore.collection("users").doc(user.uid).set({"fullName": user.fullName, "email": user.email, "accountCreated": Timestamp.now()});
+      await _firestore.collection("users").doc(user.uid).set({
+        "fullName": user.fullName,
+        "email": user.email,
+        "accountCreated": Timestamp.now(),
+      });
     } catch (e) {
       print("Error adding user to the DB. Error: $e");
       return StatusCode.ERROR;

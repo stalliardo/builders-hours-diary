@@ -26,6 +26,7 @@ class MyFormStyles {
   static TextStyle textFormStyle() {
     return TextStyle(
       color: Colors.white,
+      fontSize: 14,
     );
   }
 
