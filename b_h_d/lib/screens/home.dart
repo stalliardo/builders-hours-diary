@@ -1,4 +1,5 @@
 import 'package:b_h_d/screens/signUp.dart';
+import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/utils/customPageRoute.dart';
 import 'package:flutter/material.dart';
 
@@ -16,18 +17,16 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text("Home"),
       ),
-      body: Center(
-          child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            CustomPageRoute(
-              child: SignUp(),
-            ),
-          );
-        },
-        child: Text("Go to sign up"),
-      )),
+      body: Column(
+        children: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              Auth().signOut();
+            },
+            child: Text("Log out"),
+          ),
+        ],
+      ),
     );
   }
 }

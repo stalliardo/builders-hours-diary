@@ -1,6 +1,9 @@
+import 'package:b_h_d/screens/root.dart';
+import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
 import 'package:b_h_d/utils/stringFormatting.dart';
 import 'package:b_h_d/widgets/myButtons.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -13,9 +16,22 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
+
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _fullNameController = TextEditingController();
   String _emptyFieldError = "Fields cannot be blank";
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _emailController.dispose();
+    _fullNameController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +52,9 @@ class _SignUpState extends State<SignUp> {
           style: MyFormStyles.formTitle(),
           textAlign: TextAlign.center,
         ),
+        SizedBox(
+          height: 20,
+        ),
         Form(
           key: _formKey,
           child: Padding(
@@ -43,6 +62,7 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               children: [
                 TextFormField(
+                  controller: _fullNameController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return _emptyFieldError;
@@ -50,17 +70,21 @@ class _SignUpState extends State<SignUp> {
                     return null;
                   },
                   decoration: InputDecoration(labelText: "Full name"),
-                  // decoration: MyFormStyles.textFormFieldInputDecoration("Full name"),
                   style: MyFormStyles.textFormStyle(),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 TextFormField(
+                  controller: _emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return _emptyFieldError;
+                    } else if (!EmailValidator.validate(value)) {
+                      print("The email is valie");
+                      return "Please enter a valid email";
                     }
+
                     return null;
                   },
                   decoration: InputDecoration(labelText: "Email"),
@@ -98,7 +122,7 @@ class _SignUpState extends State<SignUp> {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(labelText: "Confirm Password"),
+                  decoration: InputDecoration(labelText: "Confirm password"),
                   obscureText: true,
                   style: MyFormStyles.textFormStyle(),
                 ),
@@ -160,17 +184,20 @@ class _SignUpState extends State<SignUp> {
                 //   inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
                 //   style: MyFormStyles.textFormStyle(),
                 // ),
-                SizedBox(
-                  height: 20,
-                ),
+
                 Container(
                   width: 340,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Processindg Data')),
-                        );
+                        StatusCode _result = await Auth().createUserWithEmailAndPassword(_emailController.text, _passwordController.text, _fullNameController.text);
+
+                        if (_result == StatusCode.SUCCESS) {
+                          // TODO go to root
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Root()), (route) => false);
+                        } else {
+                          // TODO display error message
+                        }
                       }
                     },
                     child: Text("Submit"),
