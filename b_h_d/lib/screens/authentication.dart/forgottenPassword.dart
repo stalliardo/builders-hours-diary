@@ -1,38 +1,30 @@
-import 'package:b_h_d/screens/authentication.dart/forgottenPassword.dart';
 import 'package:b_h_d/screens/root.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
-import 'package:b_h_d/utils/customPageRoute.dart';
-import 'package:b_h_d/utils/stringFormatting.dart';
 import 'package:b_h_d/widgets/myButtons.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-class Login extends StatefulWidget {
-  Login({Key? key}) : super(key: key);
+class ForgottenPassword extends StatefulWidget {
+  ForgottenPassword({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _ForgottenPasswordState createState() => _ForgottenPasswordState();
 }
 
-class _LoginState extends State<Login> {
+class _ForgottenPasswordState extends State<ForgottenPassword> {
   final _formKey = GlobalKey<FormState>();
 
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
-  String _emptyFieldError = "Fields cannot be blank";
+  String _emptyFieldError = "Email cannot be blank";
 
   bool _isLoading = false;
-  bool _isObscure = true;
 
   @override
   void dispose() {
     super.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
+
     _emailController.dispose();
   }
 
@@ -51,15 +43,15 @@ class _LoginState extends State<Login> {
           ),
         ),
         Text(
-          "Log in",
+          "Password reset",
           style: MyFormStyles.formTitle(),
           textAlign: TextAlign.center,
         ),
         SizedBox(
-          height: 4,
+          height: 8,
         ),
         Text(
-          "Welcome back! We've missed you :)",
+          "Enter your email and we'll send you a password reset code.",
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,
@@ -90,58 +82,8 @@ class _LoginState extends State<Login> {
                   style: MyFormStyles.textFormStyle(),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
-                TextFormField(
-                  controller: _passwordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return _emptyFieldError;
-                    }
-                    if (value.length < 8) {
-                      return "Passwords must be 8 a minimum of 8 chars";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        _isObscure ? Icons.visibility : Icons.visibility_off,
-                        size: 20,
-                      ),
-                      color: Colors.white,
-                      onPressed: () {
-                        setState(() {
-                          _isObscure = !_isObscure;
-                        });
-                      },
-                    ),
-                  ),
-                  obscureText: _isObscure,
-                  style: MyFormStyles.textFormStyle(),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        CustomPageRoute(
-                          child: ForgottenPassword(),
-                          parent: Login(),
-                        ),
-                      );
-                    },
-                    child: Text(
-                      "Forgotten password?",
-                      style: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-                    ),
-                  ),
-                ),
-                // SizedBox(
-                //   height: 10,
-                // ),
                 Container(
                   width: 340,
                   child: ElevatedButton(
@@ -150,14 +92,20 @@ class _LoginState extends State<Login> {
                         setState(() {
                           _isLoading = true;
                         });
-                        StatusCode _result = await Auth().signInWithEmailAndPassword(_emailController.text, _passwordController.text);
+                        StatusCode _result = await Auth().sendForgottonPasswordEmail(_emailController.text);
 
                         if (_result == StatusCode.SUCCESS) {
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Root()), (route) => false);
+                        } else if (_result == StatusCode.USER_DOES_NOT_EXIST) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Email address not found"),
+                            ),
+                          );
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text("There was a problem signing you in! Please try again."),
+                              content: Text("There was a problem sending the email. Please try again."),
                             ),
                           );
                         }
@@ -167,7 +115,7 @@ class _LoginState extends State<Login> {
                         });
                       }
                     },
-                    child: Text("Log in"),
+                    child: Text("Reset password"),
                   ),
                 ),
                 _isLoading

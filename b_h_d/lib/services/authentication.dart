@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 enum ApplicationLoginState { loggedIn, loggedOut, unknown }
-enum StatusCode { ERROR, SUCCESS }
+enum StatusCode { ERROR, SUCCESS, USER_DOES_NOT_EXIST }
 
 class Auth extends ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -25,11 +25,8 @@ class Auth extends ChangeNotifier {
     _auth.userChanges().listen((user) async {
       if (user != null) {
         _loginState = ApplicationLoginState.loggedIn;
-        // TODO build the userModel
-        // _user = MyUser(uid: user.uid, email: user.email);
+
         _user = await MyDatabase().getUser(user.uid);
-        print("user: ${_user!.fullName}");
-        print("user: ${user.uid}");
       } else {
         _loginState = ApplicationLoginState.loggedOut;
         _user = null;
@@ -55,8 +52,6 @@ class Auth extends ChangeNotifier {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
 
-      //TODO Add the user to the DB
-
       return StatusCode.SUCCESS;
     } catch (e) {
       print("Error signing user in. Error: $e");
@@ -77,5 +72,18 @@ class Auth extends ChangeNotifier {
       print("Error signing user in. Error: $e");
       return StatusCode.ERROR;
     }
+  }
+
+  Future<StatusCode> sendForgottonPasswordEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      print("Error sending the password reset email. Error: ${e.code}");
+      if (e.code == "user-not-found") {
+        return StatusCode.USER_DOES_NOT_EXIST;
+      }
+      return StatusCode.ERROR;
+    }
+    return StatusCode.SUCCESS;
   }
 }

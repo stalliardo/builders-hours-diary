@@ -27,7 +27,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -225,7 +224,6 @@ class _SignUpState extends State<SignUp> {
                         StatusCode _result = await Auth().createUserWithEmailAndPassword(_emailController.text, _passwordController.text, _fullNameController.text);
 
                         if (_result == StatusCode.SUCCESS) {
-                          // TODO go to root
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Root()), (route) => false);
                         } else {
                           // TODO display error message
