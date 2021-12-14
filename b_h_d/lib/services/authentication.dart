@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:b_h_d/models/user.dart';
 import 'package:b_h_d/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-enum ApplicationLoginState { loggedIn, loggedOut, unknown }
+enum ApplicationLoginState { loggedIn, loggedOut, unknown, emailVerified }
 enum StatusCode { ERROR, SUCCESS, USER_DOES_NOT_EXIST }
 
 class Auth extends ChangeNotifier {
@@ -25,6 +27,13 @@ class Auth extends ChangeNotifier {
     _auth.userChanges().listen((user) async {
       if (user != null) {
         _loginState = ApplicationLoginState.loggedIn;
+
+        if (!user.emailVerified) {
+          print("Email has not been verified yet");
+        } else {
+          print("Email is verifieed");
+          _loginState = ApplicationLoginState.emailVerified;
+        }
 
         _user = await MyDatabase().getUser(user.uid);
       } else {
@@ -67,6 +76,8 @@ class Auth extends ChangeNotifier {
 
       await MyDatabase().addUser(_user);
 
+      await sendVerificationEmail();
+
       return StatusCode.SUCCESS;
     } catch (e) {
       print("Error signing user in. Error: $e");
@@ -85,5 +96,9 @@ class Auth extends ChangeNotifier {
       return StatusCode.ERROR;
     }
     return StatusCode.SUCCESS;
+  }
+
+  Future<void> sendVerificationEmail() async {
+    return await _auth.currentUser?.sendEmailVerification();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:b_h_d/screens/home.dart';
+import 'package:b_h_d/screens/home/home.dart';
 import 'package:b_h_d/screens/authentication.dart/signUp.dart';
 import 'package:b_h_d/screens/splash.dart';
 import 'package:b_h_d/screens/welcome.dart';
@@ -33,7 +33,14 @@ class _RootState extends State<Root> {
         // );
         print("Logged in called from root");
 
-        screenLoader = Home();
+        screenLoader = Home(
+          emailVerified: false,
+        );
+        break;
+      case ApplicationLoginState.emailVerified:
+        screenLoader = Home(
+          emailVerified: true,
+        );
         break;
       default:
     }
