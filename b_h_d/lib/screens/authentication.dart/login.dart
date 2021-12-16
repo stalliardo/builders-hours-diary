@@ -3,11 +3,9 @@ import 'package:b_h_d/screens/root.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
 import 'package:b_h_d/utils/customPageRoute.dart';
-import 'package:b_h_d/utils/stringFormatting.dart';
 import 'package:b_h_d/widgets/myButtons.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class Login extends StatefulWidget {
   Login({Key? key}) : super(key: key);

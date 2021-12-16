@@ -44,7 +44,6 @@ class Auth extends ChangeNotifier {
   }
 
   Future<StatusCode> signOut() async {
-    print("Sign out called");
     try {
       await _auth.signOut();
       _user = null;
