@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
           height: 4,
         ),
         Text(
-          "Welcome back! We've missed you :)",
+          "Welcome back!",
           style: TextStyle(
             color: Colors.white,
             fontSize: 12,
