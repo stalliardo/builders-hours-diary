@@ -10,6 +10,13 @@ class EditFullName extends StatefulWidget {
 class _EditFullNameState extends State<EditFullName> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Edit Name"),
+      ),
+      body: Container(
+        child: Text("Edit full name"),
+      ),
+    );
   }
 }

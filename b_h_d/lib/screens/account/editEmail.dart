@@ -10,6 +10,13 @@ class EditEmail extends StatefulWidget {
 class _EditEmailState extends State<EditEmail> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Edit Email"),
+      ),
+      body: Container(
+        child: Text("Edit email"),
+      ),
+    );
   }
 }

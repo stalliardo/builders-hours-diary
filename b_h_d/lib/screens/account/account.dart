@@ -1,5 +1,9 @@
 import 'package:b_h_d/models/user.dart';
+import 'package:b_h_d/screens/account/changePassword.dart';
+import 'package:b_h_d/screens/account/editEmail.dart';
+import 'package:b_h_d/screens/account/editFullName.dart';
 import 'package:b_h_d/services/authentication.dart';
+import 'package:b_h_d/utils/customPageRoute.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +36,13 @@ class _AccountScreenState extends State<AccountScreen> {
             ),
             InkWell(
               onTap: () {
-                print("InkWell cklciked");
+                Navigator.push(
+                  context,
+                  CustomPageRoute(
+                    child: EditFullName(),
+                    parent: AccountScreen(),
+                  ),
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -58,7 +68,13 @@ class _AccountScreenState extends State<AccountScreen> {
             ),
             InkWell(
               onTap: () {
-                print("InkWell cklciked");
+                Navigator.push(
+                  context,
+                  CustomPageRoute(
+                    child: EditEmail(),
+                    parent: AccountScreen(),
+                  ),
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,7 +100,13 @@ class _AccountScreenState extends State<AccountScreen> {
             ),
             InkWell(
               onTap: () {
-                print("InkWell cklciked");
+                Navigator.push(
+                  context,
+                  CustomPageRoute(
+                    child: ChangePassword(),
+                    parent: AccountScreen(),
+                  ),
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
