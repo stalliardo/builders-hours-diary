@@ -1,4 +1,7 @@
+import 'package:b_h_d/models/user.dart';
+import 'package:b_h_d/services/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AccountScreen extends StatefulWidget {
   AccountScreen({Key? key}) : super(key: key);
@@ -10,6 +13,9 @@ class AccountScreen extends StatefulWidget {
 class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
+    Auth _auth = Provider.of<Auth>(context);
+    MyUser? _user = _auth.user;
+
     return Scaffold(
         appBar: AppBar(
           title: Text("My Account"),
@@ -17,18 +23,13 @@ class _AccountScreenState extends State<AccountScreen> {
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           children: <Widget>[
-            // SizedBox(
-            //   height: 20,
-            // ),
             Text(
               "Account Information",
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
-
             SizedBox(
               height: 20,
             ),
-
             InkWell(
               onTap: () {
                 print("InkWell cklciked");
@@ -43,7 +44,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        "Darren Stallard",
+                        _user!.fullName.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -69,7 +70,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        "DarrenStallard@gmial.com",
+                        _user.email.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -96,21 +97,17 @@ class _AccountScreenState extends State<AccountScreen> {
                 ],
               ),
             ),
-
             Divider(
               height: 30,
               color: Colors.grey[400],
             ),
-
             Text(
               "Wage Information",
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
-
             SizedBox(
               height: 20,
             ),
-
             InkWell(
               onTap: () {
                 print("InkWell cklciked");
@@ -125,7 +122,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        "£220",
+                        _user.dayRate == null ? "Not Entered" : _user.dayRate.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -134,11 +131,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 ],
               ),
             ),
-
             SizedBox(
               height: 20,
             ),
-
             InkWell(
               onTap: () {
                 print("InkWell cklciked");
@@ -153,7 +148,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        "8",
+                        _user.hoursInWorkDay == null ? "Not Entered" : _user.hoursInWorkDay.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -162,11 +157,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 ],
               ),
             ),
-
             SizedBox(
               height: 20,
             ),
-
             InkWell(
               onTap: () {
                 print("InkWell cklciked");
@@ -180,9 +173,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   ),
                   Row(
                     children: <Widget>[
-                      // TODO drop down button
                       Text(
-                        "Weekly",
+                        _user.paymentFrequency == null ? "Not Entered" : _user.paymentFrequency.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -191,11 +183,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 ],
               ),
             ),
-
             SizedBox(
               height: 20,
             ),
-
             InkWell(
               onTap: () {
                 print("InkWell cklciked");
@@ -210,7 +200,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        "3%",
+                        _user.retentionAmount == null ? "Not Entered" : _user.retentionAmount.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -219,21 +209,17 @@ class _AccountScreenState extends State<AccountScreen> {
                 ],
               ),
             ),
-
             Divider(
               height: 30,
               color: Colors.grey[400],
             ),
-
             Text(
               "Account Control",
               style: TextStyle(color: Colors.white, fontSize: 18),
             ),
-
             SizedBox(
               height: 20,
             ),
-
             Row(
               children: <Widget>[
                 Container(

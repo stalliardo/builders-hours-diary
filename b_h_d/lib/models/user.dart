@@ -6,6 +6,10 @@ class MyUser {
   String? fullName;
   Timestamp? accountCreated;
   bool? hasEneteredWageInfo;
+  double? dayRate;
+  double? hoursInWorkDay;
+  double? retentionAmount;
+  String? paymentFrequency;
 
   MyUser({
     this.uid,
