@@ -33,6 +33,10 @@ class MyDatabase {
       user.email = data["email"];
       user.accountCreated = data["accountCreated"];
       user.hasEneteredWageInfo = data["hasEneteredWageInfo"];
+      user.dayRate = data["dayRate"].toDouble();
+      user.hoursInWorkDay = data["hoursInWorkDay"].toDouble();
+      user.retentionAmount = data["retentionAmount"].toDouble();
+      user.paymentFrequency = data["paymentFrequency"];
     } catch (e) {
       print(e);
     }

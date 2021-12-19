@@ -144,7 +144,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        _user.dayRate == null ? "Not Entered" : _user.dayRate.toString(),
+                        _user.dayRate.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -170,7 +170,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        _user.hoursInWorkDay == null ? "Not Entered" : _user.hoursInWorkDay.toString(),
+                        _user.hoursInWorkDay.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -196,7 +196,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        _user.paymentFrequency == null ? "Not Entered" : _user.paymentFrequency.toString(),
+                        _user.paymentFrequency.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
@@ -222,7 +222,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Row(
                     children: <Widget>[
                       Text(
-                        _user.retentionAmount == null ? "Not Entered" : _user.retentionAmount.toString(),
+                        _user.retentionAmount.toString(),
                         style: TextStyle(color: Colors.grey[400]),
                       ),
                       Icon(Icons.chevron_right, color: Colors.grey[400]),
