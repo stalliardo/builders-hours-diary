@@ -32,6 +32,7 @@ class MyDatabase {
       user.fullName = data["fullName"];
       user.email = data["email"];
       user.accountCreated = data["accountCreated"];
+      user.hasEneteredWageInfo = data["hasEneteredWageInfo"];
     } catch (e) {
       print(e);
     }

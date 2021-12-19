@@ -5,11 +5,13 @@ class MyUser {
   String? email;
   String? fullName;
   Timestamp? accountCreated;
+  bool? hasEneteredWageInfo;
 
   MyUser({
     this.uid,
     this.email,
     this.fullName,
     this.accountCreated,
+    this.hasEneteredWageInfo,
   });
 }
