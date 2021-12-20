@@ -164,11 +164,6 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    print("dr = $dayRate");
-                    print("paymentF = $dropDownValue");
-                    print("hiwd = $hoursInWorkDay");
-                    print("ra = $retentionAmount");
-
                     StatusCode _result = await MyDatabase().addInitialUserWageInfo(widget.uid, dropDownValue, double.parse(dayRate!), double.parse(hoursInWorkDay!), double.parse(retentionAmount!));
 
                     if (_result == StatusCode.SUCCESS) {

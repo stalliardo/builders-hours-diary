@@ -20,8 +20,6 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     Auth _auth = Provider.of<Auth>(context);
 
-    // MyUser? _user = _auth.user;
-
     return Scaffold(
       appBar: AppBar(
         title: Text("My Account"),
@@ -29,8 +27,6 @@ class _AccountScreenState extends State<AccountScreen> {
       body: StreamBuilder<MyUser>(
         stream: MyDatabase().userData(_auth.user!.uid!),
         builder: (context, snapshot) {
-          // check that we have data before buidling widgte tree
-          print("snapshot from streamBuilder = $snapshot");
           if (snapshot.hasData) {
             MyUser _user = snapshot.data!;
             return ListView(padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12), children: <Widget>[
@@ -264,7 +260,6 @@ class _AccountScreenState extends State<AccountScreen> {
             ]);
           } else {
             return Center(
-              // width: 100,
               child: Column(
                 children: <Widget>[
                   SizedBox(
