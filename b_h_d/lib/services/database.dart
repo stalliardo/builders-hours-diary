@@ -43,4 +43,16 @@ class MyDatabase {
 
     return user;
   }
+
+  Future<StatusCode> addInitialUserWageInfo(String uid, String paymentFrequency, double dayRate, double hoursInWorkDay, double retentionAmount) async {
+    try {
+      await _firestore
+          .collection("users")
+          .doc(uid)
+          .update({"dayRate": dayRate, "paymentFrequency": paymentFrequency, "hoursInWorkDay": hoursInWorkDay, "retentionAmount": retentionAmount, "hasEnteredWageInfo": true});
+    } catch (e) {
+      return StatusCode.ERROR;
+    }
+    return StatusCode.SUCCESS;
+  }
 }

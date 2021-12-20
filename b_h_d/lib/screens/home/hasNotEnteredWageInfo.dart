@@ -1,5 +1,7 @@
 import 'package:b_h_d/screens/account/account.dart';
 import 'package:b_h_d/screens/home/emailNotVerified.dart';
+import 'package:b_h_d/services/authentication.dart';
+import 'package:b_h_d/services/database.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
 import 'package:b_h_d/utils/customPageRoute.dart';
 import 'package:b_h_d/utils/stringFormatting.dart';
@@ -9,7 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class HasNotEnteredWageInfo extends StatefulWidget {
-  HasNotEnteredWageInfo({Key? key}) : super(key: key);
+  final String uid;
+  HasNotEnteredWageInfo({Key? key, required this.uid}) : super(key: key);
 
   @override
   _HasNotEnteredWageInfoState createState() => _HasNotEnteredWageInfoState();
@@ -159,12 +162,20 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       print("dr = $dayRate");
                       print("paymentF = $dropDownValue");
                       print("hiwd = $hoursInWorkDay");
                       print("ra = $retentionAmount");
+
+                      StatusCode _result = await MyDatabase().addInitialUserWageInfo(widget.uid, dropDownValue, double.parse(dayRate!), double.parse(hoursInWorkDay!), double.parse(retentionAmount!));
+
+                      if (_result == StatusCode.SUCCESS) {
+                        // go to root?
+                      } else {
+                        // TODO hanlde errors
+                      }
 
                       // TODO parse to doubles before sending to the db
 

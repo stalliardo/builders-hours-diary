@@ -18,7 +18,7 @@ class _EmailVerifiedState extends State<EmailVerified> {
     Auth _auth = Provider.of<Auth>(context);
     bool hasEnteredWageInfo = _auth.user!.hasEneteredWageInfo!;
 
-    return hasEnteredWageInfo ? HasEnteredWageInfo() : HasNotEnteredWageInfo();
+    return hasEnteredWageInfo ? HasEnteredWageInfo() : HasNotEnteredWageInfo(uid: _auth.user!.uid!);
   }
 }
 
