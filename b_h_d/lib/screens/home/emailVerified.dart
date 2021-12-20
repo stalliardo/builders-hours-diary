@@ -16,8 +16,7 @@ class _EmailVerifiedState extends State<EmailVerified> {
   @override
   Widget build(BuildContext context) {
     Auth _auth = Provider.of<Auth>(context);
-    MyUser _user = _auth.user!;
-    bool hasEnteredWageInfo = _user.hasEneteredWageInfo!;
+    bool hasEnteredWageInfo = _auth.user!.hasEneteredWageInfo!;
 
     return hasEnteredWageInfo ? HasEnteredWageInfo() : HasNotEnteredWageInfo();
   }

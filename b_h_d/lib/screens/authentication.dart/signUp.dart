@@ -157,62 +157,6 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                   height: 20,
                 ),
-                // TextFormField(
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return _emptyFieldError;
-                //     }
-                //     return null;
-                //   },
-                //   decoration: InputDecoration(labelText: "Payment frequency"),
-                //   style: MyFormStyles.textFormStyle(),
-                // ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                // TextFormField(
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return _emptyFieldError;
-                //     }
-                //     return null;
-                //   },
-                //   decoration: InputDecoration(labelText: "Day rate"),
-                //   keyboardType: TextInputType.number,
-                //   inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
-                //   style: MyFormStyles.textFormStyle(),
-                // ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                // TextFormField(
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return _emptyFieldError;
-                //     }
-                //     return null;
-                //   },
-                //   decoration: InputDecoration(labelText: "Paid hours in work day"),
-                //   keyboardType: TextInputType.number,
-                //   inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
-                //   style: MyFormStyles.textFormStyle(),
-                // ),
-                // SizedBox(
-                //   height: 20,
-                // ),
-                // TextFormField(
-                //   validator: (value) {
-                //     if (value == null || value.isEmpty) {
-                //       return _emptyFieldError;
-                //     }
-                //     return null;
-                //   },
-                //   decoration: InputDecoration(labelText: "Retention amount %"),
-                //   keyboardType: TextInputType.number,
-                //   inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
-                //   style: MyFormStyles.textFormStyle(),
-                // ),
-
                 Container(
                   width: 340,
                   child: ElevatedButton(
@@ -237,7 +181,6 @@ class _SignUpState extends State<SignUp> {
                     child: Text("Register"),
                   ),
                 ),
-
                 _isLoading
                     ? Column(
                         children: <Widget>[
