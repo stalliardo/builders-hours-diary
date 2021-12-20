@@ -18,4 +18,6 @@ class MyUser {
     this.accountCreated,
     this.hasEneteredWageInfo,
   });
+
+  MyUser.full({this.uid, this.email, this.fullName, this.accountCreated, this.hasEneteredWageInfo, this.dayRate, this.hoursInWorkDay, this.retentionAmount, this.paymentFrequency});
 }

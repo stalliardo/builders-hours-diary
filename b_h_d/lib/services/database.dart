@@ -20,6 +20,8 @@ class MyDatabase {
     return StatusCode.SUCCESS;
   }
 
+  // Convert below to a stream
+
   Future<MyUser> getUser(String uid) async {
     MyUser user = MyUser();
 
@@ -54,5 +56,25 @@ class MyDatabase {
       return StatusCode.ERROR;
     }
     return StatusCode.SUCCESS;
+  }
+
+  MyUser userDataFromSnapshot(DocumentSnapshot snapshot) {
+    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+
+    return MyUser.full(
+      uid: snapshot.id, //?
+      fullName: data["fullName"],
+      email: data["email"],
+      hasEneteredWageInfo: data["hasEneteredWageInfo"],
+      dayRate: data["dayRate"].toDouble(),
+      hoursInWorkDay: data["hoursInWorkDay"].toDouble(),
+      retentionAmount: data["retentionAmount"].toDouble(),
+      paymentFrequency: data["paymentFrequency"],
+    );
+  }
+
+  // Get user doc stream
+  Stream<MyUser> userData(String uid) {
+    return _firestore.collection("users").doc(uid).snapshots().map(userDataFromSnapshot);
   }
 }

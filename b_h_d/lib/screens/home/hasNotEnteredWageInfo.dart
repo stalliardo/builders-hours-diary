@@ -55,139 +55,150 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
           height: 40,
         ),
         Form(
-            key: _formKey,
-            child: Column(
-              children: <Widget>[
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return _emptyFieldError;
-                    }
-                    if (int.parse(value) < 1) {
-                      return "Eh? £0 a day?";
-                    }
+          key: _formKey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return _emptyFieldError;
+                  }
+                  if (int.parse(value) < 1) {
+                    return "Eh? £0 a day?";
+                  }
 
-                    if (StringFormatting.startsWithAZero(value)) {
-                      return "Values can't start with a 0";
-                    }
+                  if (StringFormatting.startsWithAZero(value)) {
+                    return "Values can't start with a 0";
+                  }
 
-                    return null;
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      dayRate = value;
-                    });
-                  },
-                  decoration: InputDecoration(labelText: "Day rate"),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
-                  style: MyFormStyles.textFormStyle(),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  // margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 0.4,
-                      color: Colors.blueGrey,
-                    ),
-                    borderRadius: BorderRadius.circular(10),
+                  return null;
+                },
+                onChanged: (value) {
+                  setState(() {
+                    dayRate = value;
+                  });
+                },
+                decoration: InputDecoration(labelText: "Day rate"),
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
+                style: MyFormStyles.textFormStyle(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                // margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 0.4,
+                    color: Colors.blueGrey,
                   ),
-                  padding: EdgeInsets.fromLTRB(16, 0, 10, 0),
-                  child: MyDropDownButton(
-                    items: paymentFrequencyOptions,
-                    selected: dropDownValue,
-                    valueReturned: onItemSelected,
-                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                SizedBox(
-                  height: 20,
+                padding: EdgeInsets.fromLTRB(16, 0, 10, 0),
+                child: MyDropDownButton(
+                  items: paymentFrequencyOptions,
+                  selected: dropDownValue,
+                  valueReturned: onItemSelected,
                 ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return _emptyFieldError;
-                    }
-                    if (int.parse(value) < 1) {
-                      return "0 hours a day is not valid";
-                    }
-                    if (int.parse(value) > 24) {
-                      return "There's not that many hours in a day :)";
-                    }
-                    if (StringFormatting.startsWithAZero(value)) {
-                      return "Values can't start with a 0";
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      hoursInWorkDay = value;
-                    });
-                  },
-                  decoration: InputDecoration(labelText: "Paid hours in work day"),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
-                  style: MyFormStyles.textFormStyle(),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                TextFormField(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return _emptyFieldError;
-                    }
-                    if (StringFormatting.startsWithAZero(value) && value.length > 1) {
-                      return "Values can't start with a 0";
-                    }
-                    if (int.parse(value) > 100) {
-                      return "Retention can't be greater than 100";
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return _emptyFieldError;
+                  }
+                  if (int.parse(value) < 1) {
+                    return "0 hours a day is not valid";
+                  }
+                  if (int.parse(value) > 24) {
+                    return "There's not that many hours in a day :)";
+                  }
+                  if (StringFormatting.startsWithAZero(value)) {
+                    return "Values can't start with a 0";
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  setState(() {
+                    hoursInWorkDay = value;
+                  });
+                },
+                decoration: InputDecoration(labelText: "Paid hours in work day"),
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
+                style: MyFormStyles.textFormStyle(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return _emptyFieldError;
+                  }
+                  if (StringFormatting.startsWithAZero(value) && value.length > 1) {
+                    return "Values can't start with a 0";
+                  }
+                  if (int.parse(value) > 100) {
+                    return "Retention can't be greater than 100";
+                  }
+
+                  return null;
+                },
+                onChanged: (value) {
+                  setState(() {
+                    retentionAmount = value;
+                  });
+                },
+                decoration: InputDecoration(labelText: "Retention amount %"),
+                keyboardType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
+                style: MyFormStyles.textFormStyle(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    print("dr = $dayRate");
+                    print("paymentF = $dropDownValue");
+                    print("hiwd = $hoursInWorkDay");
+                    print("ra = $retentionAmount");
+
+                    StatusCode _result = await MyDatabase().addInitialUserWageInfo(widget.uid, dropDownValue, double.parse(dayRate!), double.parse(hoursInWorkDay!), double.parse(retentionAmount!));
+
+                    if (_result == StatusCode.SUCCESS) {
+                      // go to root?
+                    } else {
+                      // TODO hanlde errors
                     }
 
-                    return null;
-                  },
-                  onChanged: (value) {
-                    setState(() {
-                      retentionAmount = value;
-                    });
-                  },
-                  decoration: InputDecoration(labelText: "Retention amount %"),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
-                  style: MyFormStyles.textFormStyle(),
+                    // TODO parse to doubles before sending to the db
+
+                    // Now get the values for each and call some update method in the database
+                    // Also need a stream for listening to changes on the user model
+                    // And what about checking for dirty values when the user presses back???
+                  }
+                },
+                child: Text("Save Information"),
+              ),
+            ],
+          ),
+        ),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AccountScreen(),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      print("dr = $dayRate");
-                      print("paymentF = $dropDownValue");
-                      print("hiwd = $hoursInWorkDay");
-                      print("ra = $retentionAmount");
-
-                      StatusCode _result = await MyDatabase().addInitialUserWageInfo(widget.uid, dropDownValue, double.parse(dayRate!), double.parse(hoursInWorkDay!), double.parse(retentionAmount!));
-
-                      if (_result == StatusCode.SUCCESS) {
-                        // go to root?
-                      } else {
-                        // TODO hanlde errors
-                      }
-
-                      // TODO parse to doubles before sending to the db
-
-                      // Now get the values for each and call some update method in the database
-                      // Also need a stream for listening to changes on the user model
-                      // And what about checking for dirty values when the user presses back???
-                    }
-                  },
-                  child: Text("Save Information"),
-                ),
-              ],
-            ))
+              );
+            },
+            child: Text("Go to account"))
       ],
     );
   }
