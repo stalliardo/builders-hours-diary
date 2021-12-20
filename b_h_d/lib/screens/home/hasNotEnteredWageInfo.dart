@@ -6,10 +6,17 @@ import 'package:b_h_d/utils/stringFormatting.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class HasNotEnteredWageInfo extends StatelessWidget {
-  const HasNotEnteredWageInfo({Key? key}) : super(key: key);
+class HasNotEnteredWageInfo extends StatefulWidget {
+  HasNotEnteredWageInfo({Key? key}) : super(key: key);
 
+  @override
+  _HasNotEnteredWageInfoState createState() => _HasNotEnteredWageInfoState();
+}
+
+class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
   final String _emptyFieldError = "Fields cannot be blank";
+  final paymentFrequencyOptions = ["Weekly", "Fortnightly", "Mothly"];
+  String dropDownValue = "Weekly";
 
   @override
   Widget build(BuildContext context) {
@@ -46,16 +53,55 @@ class HasNotEnteredWageInfo extends StatelessWidget {
         SizedBox(
           height: 20,
         ),
-        TextFormField(
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return _emptyFieldError;
-            }
-            return null;
-          },
-          decoration: InputDecoration(labelText: "Payment frequency"),
-          style: MyFormStyles.textFormStyle(),
+        //////
+        ///
+        ///
+
+        Container(
+          // margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 0.4,
+              color: Colors.blueGrey,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          padding: EdgeInsets.fromLTRB(16, 0, 10, 0),
+
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              style: TextStyle(color: Colors.white),
+              value: dropDownValue,
+              items: paymentFrequencyOptions
+                  .map<DropdownMenuItem<String>>(
+                    (String value) => DropdownMenuItem<String>(
+                      child: Text(value),
+                      value: value,
+                    ),
+                  )
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  dropDownValue = value!;
+                });
+              },
+              isExpanded: true,
+              iconEnabledColor: Colors.white,
+              iconSize: 24,
+            ),
+          ),
         ),
+
+        ////
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
+        ///
         SizedBox(
           height: 20,
         ),

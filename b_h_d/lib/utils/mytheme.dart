@@ -31,7 +31,7 @@ class MyTheme {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
           borderSide: BorderSide(
-            color: MyTheme().bluegrey,
+            color: bluegrey,
           ),
         ),
       ),
