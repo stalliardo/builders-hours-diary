@@ -3,6 +3,8 @@ import 'package:b_h_d/screens/home/emailNotVerified.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
 import 'package:b_h_d/utils/customPageRoute.dart';
 import 'package:b_h_d/utils/stringFormatting.dart';
+import 'package:b_h_d/widgets/myButtons.dart';
+import 'package:b_h_d/widgets/myDropDownButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,6 +19,12 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
   final String _emptyFieldError = "Fields cannot be blank";
   final paymentFrequencyOptions = ["Weekly", "Fortnightly", "Mothly"];
   String dropDownValue = "Weekly";
+
+  onItemSelected(String value) {
+    setState(() {
+      dropDownValue = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +61,6 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
         SizedBox(
           height: 20,
         ),
-        //////
-        ///
-        ///
-
         Container(
           // margin: EdgeInsets.all(10),
           decoration: BoxDecoration(
@@ -67,41 +71,12 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
             borderRadius: BorderRadius.circular(10),
           ),
           padding: EdgeInsets.fromLTRB(16, 0, 10, 0),
-
-          child: DropdownButtonHideUnderline(
-            child: DropdownButton<String>(
-              style: TextStyle(color: Colors.white),
-              value: dropDownValue,
-              items: paymentFrequencyOptions
-                  .map<DropdownMenuItem<String>>(
-                    (String value) => DropdownMenuItem<String>(
-                      child: Text(value),
-                      value: value,
-                    ),
-                  )
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  dropDownValue = value!;
-                });
-              },
-              isExpanded: true,
-              iconEnabledColor: Colors.white,
-              iconSize: 24,
-            ),
+          child: MyDropDownButton(
+            items: paymentFrequencyOptions,
+            selected: dropDownValue,
+            valueReturned: onItemSelected,
           ),
         ),
-
-        ////
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
-        ///
         SizedBox(
           height: 20,
         ),
