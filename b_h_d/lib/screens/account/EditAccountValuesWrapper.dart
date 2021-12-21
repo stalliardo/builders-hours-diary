@@ -1,3 +1,4 @@
+import 'package:b_h_d/screens/account/editEmail.dart';
 import 'package:b_h_d/screens/account/editStringProperty.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class _EditAccountValuesWrapperState extends State<EditAccountValuesWrapper> {
         return EditStringProperty(uid: widget.uid, propertyValue: widget.propertyValue);
 
       case "Email":
+        return EditEmail(uid: widget.uid, propertyValue: widget.propertyValue);
         break;
       case "Change Password":
         break;

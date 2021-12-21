@@ -78,7 +78,11 @@ class _AccountScreenState extends State<AccountScreen> {
                   Navigator.push(
                     context,
                     CustomPageRoute(
-                      child: EditEmail(),
+                      child: EditAccountValuesWrapper(
+                        uid: _auth.user!.uid!,
+                        appBarTitle: "Email",
+                        propertyValue: _user.email!,
+                      ),
                       parent: AccountScreen(),
                     ),
                   );
@@ -301,13 +305,15 @@ class _AccountScreenState extends State<AccountScreen> {
 //  - Change payment freqency screen
 //  - Change retention amount sceen
 
+
+
 // Screens that can share functionality....
 //  - dayRate, hiwd and retention amount all live in the same place and have the same data type so they can share a common widget, will just pass in different values to the constructor
 //  - All the others have slightly diffrent data types or methods for editing the value
 
 
 // Full name will just have an input and a button that is enabled when the value is changed
-// Email will have to call firebase.auth and check if it is unique etc
+// Email will have to call  _auth.currentUser.updateEmail(newEmail) this is a auth function not a DB function and may require the user to sign back in
 // Password will need to be re-authed and other checks made
 // Day rate, hiwd and retention amount will have a number only input can re-use the ones from the wage info page
 // Payment frequency will use the "MyDropDown" widget
