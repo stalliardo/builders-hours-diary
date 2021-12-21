@@ -1,7 +1,8 @@
 import 'package:b_h_d/models/user.dart';
+import 'package:b_h_d/screens/account/EditAccountValuesWrapper.dart';
 import 'package:b_h_d/screens/account/changePassword.dart';
 import 'package:b_h_d/screens/account/editEmail.dart';
-import 'package:b_h_d/screens/account/editFullName.dart';
+import 'package:b_h_d/screens/account/editStringProperty.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/services/database.dart';
 import 'package:b_h_d/utils/customPageRoute.dart';
@@ -42,7 +43,10 @@ class _AccountScreenState extends State<AccountScreen> {
                   Navigator.push(
                     context,
                     CustomPageRoute(
-                      child: EditFullName(),
+                      child: EditAccountValuesWrapper(
+                        appBarTitle: "Full Name",
+                        propertyValue: _user.fullName!,
+                      ),
                       parent: AccountScreen(),
                     ),
                   );
@@ -284,3 +288,32 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 }
+
+
+
+
+// TODO....
+//  - Change full name screen
+//  - Change email screen
+//  - Change password screen
+//  - Change dayRate screen
+//  - Change hiwd screen
+//  - Change payment freqency screen
+//  - Change retention amount sceen
+
+// Screens that can share functionality....
+//  - dayRate, hiwd and retention amount all live in the same place and have the same data type so they can share a common widget, will just pass in different values to the constructor
+//  - All the others have slightly diffrent data types or methods for editing the value
+
+
+// Full name will just have an input and a button that is enabled when the value is changed
+// Email will have to call firebase.auth and check if it is unique etc
+// Password will need to be re-authed and other checks made
+// Day rate, hiwd and retention amount will have a number only input can re-use the ones from the wage info page
+// Payment frequency will use the "MyDropDown" widget
+
+// i do wan the ui/ page for each to look th same ie, a scaffold with a title and and a body. All the same paddings and colours etc....AccountScreen
+// So could have a wrapper for all of the comps and a switch that handles which widget is diplayed in the body of the scaffold
+// Each widget will then just return a Column with the data inside
+// Wrapper name: EditAccountValuesWrapper
+//  

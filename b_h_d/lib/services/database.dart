@@ -1,5 +1,6 @@
 import 'package:b_h_d/models/user.dart';
 import 'package:b_h_d/services/authentication.dart';
+import 'package:b_h_d/utils/stringFormatting.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyDatabase {
@@ -8,7 +9,7 @@ class MyDatabase {
   Future<StatusCode> addUser(MyUser user) async {
     try {
       await _firestore.collection("users").doc(user.uid).set({
-        "fullName": user.fullName,
+        "fullName": StringFormatting.toTitleCase(user.fullName!),
         "email": user.email,
         "accountCreated": Timestamp.now(),
         "dayRate": 0.0,
