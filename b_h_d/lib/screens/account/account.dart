@@ -2,7 +2,6 @@ import 'package:b_h_d/models/user.dart';
 import 'package:b_h_d/screens/account/EditAccountValuesWrapper.dart';
 import 'package:b_h_d/screens/account/changePassword.dart';
 import 'package:b_h_d/screens/account/editEmail.dart';
-import 'package:b_h_d/screens/account/editStringProperty.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/services/database.dart';
 import 'package:b_h_d/utils/customPageRoute.dart';
@@ -44,6 +43,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     context,
                     CustomPageRoute(
                       child: EditAccountValuesWrapper(
+                        uid: _auth.user!.uid!,
                         appBarTitle: "Full Name",
                         propertyValue: _user.fullName!,
                       ),

@@ -1,10 +1,13 @@
+import 'package:b_h_d/services/authentication.dart';
+import 'package:b_h_d/services/database.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
 import 'package:b_h_d/utils/stringFormatting.dart';
 import 'package:flutter/material.dart';
 
 class EditStringProperty extends StatefulWidget {
   String propertyValue;
-  EditStringProperty({Key? key, required this.propertyValue}) : super(key: key);
+  String uid;
+  EditStringProperty({Key? key, required this.uid, required this.propertyValue}) : super(key: key);
 
   @override
   _EditStringPropertyState createState() => _EditStringPropertyState();
@@ -31,7 +34,7 @@ class _EditStringPropertyState extends State<EditStringProperty> {
               if (value == null || value.isEmpty) {
                 return "Fields cannot be blank";
               }
-              if (value == widget.propertyValue) {
+              if (StringFormatting.toTitleCase(value) == widget.propertyValue) {
                 return "Name must be different";
               }
               return null;
@@ -45,14 +48,16 @@ class _EditStringPropertyState extends State<EditStringProperty> {
           Container(
             width: 200,
             child: ElevatedButton(
-              onPressed: () {
-                // Will check here the state of the saveButtonEnabled prop and only save if is valid
-                // TODO - what about capitals?????? this counts as a different value, fuck
-
-                String titleString = StringFormatting.toTitleCase("this is, , a test and so on and so on.");
-                print("title string = $titleString");
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
-                  print("good to save");
+                  StatusCode _result = await MyDatabase().updateSingleField(
+                    widget.uid,
+                    {"fullName": StringFormatting.toTitleCase(newFullName)},
+                  );
+                  if (_result == StatusCode.ERROR) {
+                  } else {
+                    Navigator.pop(context);
+                  }
                 }
               },
               child: Text("Save"),
@@ -63,5 +68,3 @@ class _EditStringPropertyState extends State<EditStringProperty> {
     );
   }
 }
-
-// This file will edit simple String based values for the user

@@ -65,6 +65,18 @@ class MyDatabase {
     return StatusCode.SUCCESS;
   }
 
+  Future<StatusCode> updateSingleField(String uid, Map<String, Object> data) async {
+    // data should look like {"fullName": "Dazza S"} or {"dayRate": 0.0}
+    print("uid = $uid");
+    try {
+      await _firestore.collection("users").doc(uid).update(data);
+    } catch (e) {
+      print("eeorr: $e");
+      return StatusCode.ERROR;
+    }
+    return StatusCode.SUCCESS;
+  }
+
   MyUser userDataFromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
 

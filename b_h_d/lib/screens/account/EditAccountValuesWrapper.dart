@@ -2,9 +2,11 @@ import 'package:b_h_d/screens/account/editStringProperty.dart';
 import 'package:flutter/material.dart';
 
 class EditAccountValuesWrapper extends StatefulWidget {
-  String appBarTitle;
-  String propertyValue;
-  EditAccountValuesWrapper({Key? key, required this.appBarTitle, required this.propertyValue}) : super(key: key);
+  final String uid;
+  final String appBarTitle;
+  final String propertyValue;
+
+  EditAccountValuesWrapper({Key? key, required this.uid, required this.appBarTitle, required this.propertyValue}) : super(key: key);
 
   @override
   _EditAccountValuesWrapperState createState() => _EditAccountValuesWrapperState();
@@ -14,9 +16,8 @@ class _EditAccountValuesWrapperState extends State<EditAccountValuesWrapper> {
   Widget _loadScreens(String editingType) {
     switch (editingType) {
       case "Full Name":
-        // return simple text edit form
-        return EditStringProperty(propertyValue: widget.propertyValue);
-        break;
+        return EditStringProperty(uid: widget.uid, propertyValue: widget.propertyValue);
+
       case "Email":
         break;
       case "Change Password":
