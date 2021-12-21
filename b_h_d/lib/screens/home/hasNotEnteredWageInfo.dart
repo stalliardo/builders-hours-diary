@@ -1,11 +1,8 @@
 import 'package:b_h_d/screens/account/account.dart';
-import 'package:b_h_d/screens/home/emailNotVerified.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/services/database.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
-import 'package:b_h_d/utils/customPageRoute.dart';
 import 'package:b_h_d/utils/stringFormatting.dart';
-import 'package:b_h_d/widgets/myButtons.dart';
 import 'package:b_h_d/widgets/myDropDownButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -63,7 +60,7 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
                   if (value == null || value.isEmpty) {
                     return _emptyFieldError;
                   }
-                  if (int.parse(value) < 1) {
+                  if (double.parse(value) < 1) {
                     return "Eh? £0 a day?";
                   }
 
@@ -87,7 +84,6 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
                 height: 20,
               ),
               Container(
-                // margin: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: 0.4,
@@ -110,10 +106,10 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
                   if (value == null || value.isEmpty) {
                     return _emptyFieldError;
                   }
-                  if (int.parse(value) < 1) {
+                  if (double.parse(value) < 1) {
                     return "0 hours a day is not valid";
                   }
-                  if (int.parse(value) > 24) {
+                  if (double.parse(value) > 24) {
                     return "There's not that many hours in a day :)";
                   }
                   if (StringFormatting.startsWithAZero(value)) {
@@ -127,7 +123,7 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
                   });
                 },
                 decoration: InputDecoration(labelText: "Paid hours in work day"),
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.numberWithOptions(),
                 inputFormatters: [FilteringTextInputFormatter.allow(StringFormatting.onlyNumbersAndOneDecimal())],
                 style: MyFormStyles.textFormStyle(),
               ),
@@ -142,7 +138,7 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
                   if (StringFormatting.startsWithAZero(value) && value.length > 1) {
                     return "Values can't start with a 0";
                   }
-                  if (int.parse(value) > 100) {
+                  if (double.parse(value) > 100) {
                     return "Retention can't be greater than 100";
                   }
 
@@ -163,19 +159,23 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
               ),
               ElevatedButton(
                 onPressed: () async {
+                  print("onPressed called");
                   if (_formKey.currentState!.validate()) {
+                    print("Form is valid called");
                     StatusCode _result = await MyDatabase().addInitialUserWageInfo(widget.uid, dropDownValue, double.parse(dayRate!), double.parse(hoursInWorkDay!), double.parse(retentionAmount!));
 
-                    if (_result == StatusCode.SUCCESS) {
-                      // go to root?
-                    } else {
-                      // TODO hanlde errors
+                    if (_result == StatusCode.ERROR) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text("There was a problem saving your information! Please try again"),
+                        ),
+                      );
                     }
 
-                    // TODO parse to doubles before sending to the db
+                    // TODO parse to doubles before sending to the db - DONE
 
-                    // Now get the values for each and call some update method in the database
-                    // Also need a stream for listening to changes on the user model
+                    // Now get the values for each and call some update method in the database - DONE
+                    // Also need a stream for listening to changes on the user model - DONE
                     // And what about checking for dirty values when the user presses back???
                   }
                 },

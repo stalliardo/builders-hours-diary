@@ -41,7 +41,7 @@ class _EmailNotVerifiedState extends State<EmailNotVerified> {
             height: 90,
           ),
           Text(
-            "Awaiting email verification...",
+            "Awaiting email verification. You might need to check your junk folder.",
             style: TextStyle(color: Colors.white),
           ),
           SizedBox(
@@ -64,3 +64,5 @@ class _EmailNotVerifiedState extends State<EmailNotVerified> {
     );
   }
 }
+
+// TODO - Some text about checking junk folder....

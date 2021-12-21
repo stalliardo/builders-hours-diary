@@ -5,7 +5,7 @@ class MyUser {
   String? email;
   String? fullName;
   Timestamp? accountCreated;
-  bool? hasEneteredWageInfo;
+  bool? hasEnteredWageInfo;
   double? dayRate;
   double? hoursInWorkDay;
   double? retentionAmount;
@@ -16,8 +16,8 @@ class MyUser {
     this.email,
     this.fullName,
     this.accountCreated,
-    this.hasEneteredWageInfo,
+    this.hasEnteredWageInfo,
   });
 
-  MyUser.full({this.uid, this.email, this.fullName, this.accountCreated, this.hasEneteredWageInfo, this.dayRate, this.hoursInWorkDay, this.retentionAmount, this.paymentFrequency});
+  MyUser.full({this.uid, this.email, this.fullName, this.accountCreated, this.hasEnteredWageInfo, this.dayRate, this.hoursInWorkDay, this.retentionAmount, this.paymentFrequency});
 }

@@ -17,13 +17,13 @@ class _EmailVerifiedState extends State<EmailVerified> {
   @override
   Widget build(BuildContext context) {
     Auth _auth = Provider.of<Auth>(context);
-    bool hasEnteredWageInfo = _auth.user!.hasEneteredWageInfo!;
+    bool hasEnteredWageInfo = _auth.user!.hasEnteredWageInfo!;
 
     return StreamProvider<MyUser>.value(
       value: MyDatabase().userData(_auth.user!.uid!),
-      initialData: MyUser(hasEneteredWageInfo: hasEnteredWageInfo),
+      initialData: MyUser(hasEnteredWageInfo: hasEnteredWageInfo),
       child: Consumer<MyUser>(
-        builder: (context, _userData, _) => _userData.hasEneteredWageInfo! ? HasEnteredWageInfo() : HasNotEnteredWageInfo(uid: _auth.user!.uid!),
+        builder: (context, _userData, _) => _userData.hasEnteredWageInfo! ? HasEnteredWageInfo() : HasNotEnteredWageInfo(uid: _auth.user!.uid!),
       ),
     );
   }

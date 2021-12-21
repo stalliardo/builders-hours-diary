@@ -32,9 +32,10 @@ class Auth extends ChangeNotifier {
         } else {
           print("Email is verifieed");
           _loginState = ApplicationLoginState.emailVerified;
-        }
 
-        _user = await MyDatabase().getUser(user.uid);
+          // TODO check this is okay here......
+          _user = await MyDatabase().getUser(user.uid);
+        }
       } else {
         _loginState = ApplicationLoginState.loggedOut;
         _user = null;

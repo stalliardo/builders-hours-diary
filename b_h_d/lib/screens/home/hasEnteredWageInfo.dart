@@ -10,6 +10,8 @@ class HasEnteredWageInfo extends StatefulWidget {
 class _HasEnteredWageInfoState extends State<HasEnteredWageInfo> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: Text("Has entered wage info"),
+    );
   }
 }

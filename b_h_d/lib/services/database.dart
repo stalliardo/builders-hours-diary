@@ -11,6 +11,11 @@ class MyDatabase {
         "fullName": user.fullName,
         "email": user.email,
         "accountCreated": Timestamp.now(),
+        "dayRate": 0.0,
+        "hoursInWorkDay": 0.0,
+        "retentionAmount": 0.0,
+        "paymentFrequency": "Weekly",
+        "hasEnteredWageInfo": false
       });
     } catch (e) {
       print("Error adding user to the DB. Error: $e");
@@ -34,7 +39,7 @@ class MyDatabase {
       user.fullName = data["fullName"];
       user.email = data["email"];
       user.accountCreated = data["accountCreated"];
-      user.hasEneteredWageInfo = data["hasEneteredWageInfo"];
+      user.hasEnteredWageInfo = data["hasEnteredWageInfo"];
       user.dayRate = data["dayRate"].toDouble();
       user.hoursInWorkDay = data["hoursInWorkDay"].toDouble();
       user.retentionAmount = data["retentionAmount"].toDouble();
@@ -47,6 +52,7 @@ class MyDatabase {
   }
 
   Future<StatusCode> addInitialUserWageInfo(String uid, String paymentFrequency, double dayRate, double hoursInWorkDay, double retentionAmount) async {
+    print("addinitial called");
     try {
       await _firestore
           .collection("users")
@@ -65,7 +71,7 @@ class MyDatabase {
       uid: snapshot.id, //?
       fullName: data["fullName"],
       email: data["email"],
-      hasEneteredWageInfo: data["hasEneteredWageInfo"],
+      hasEnteredWageInfo: data["hasEnteredWageInfo"],
       dayRate: data["dayRate"].toDouble(),
       hoursInWorkDay: data["hoursInWorkDay"].toDouble(),
       retentionAmount: data["retentionAmount"].toDouble(),
