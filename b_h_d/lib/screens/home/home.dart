@@ -1,3 +1,4 @@
+import 'package:b_h_d/screens/account/account.dart';
 import 'package:b_h_d/screens/home/emailNotVerified.dart';
 import 'package:b_h_d/screens/home/emailVerified.dart';
 import 'package:b_h_d/services/authentication.dart';
@@ -25,6 +26,46 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.logout),
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Container(
+              height: 140,
+              child: DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.blueGrey,
+                ),
+                child: Text('Drawer Header'),
+              ),
+            ),
+            ListTile(
+              title: Text(
+                'Account',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AccountScreen(),
+                  ),
+                );
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Tools',
+                style: TextStyle(color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
       ),
       body: widget.emailVerified ? EmailVerified() : EmailNotVerified(),
     );
