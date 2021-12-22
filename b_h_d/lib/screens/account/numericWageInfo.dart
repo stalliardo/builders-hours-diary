@@ -8,7 +8,7 @@ import 'package:flutter/services.dart';
 class NumericWageInfo extends StatefulWidget {
   String propertyValue;
   String uid;
-  String propertyName; // ie dayRate, retentionAmount...
+  String propertyName;
   String labelText;
   NumericWageInfo({Key? key, required this.uid, required this.propertyValue, required this.propertyName, required this.labelText}) : super(key: key);
 

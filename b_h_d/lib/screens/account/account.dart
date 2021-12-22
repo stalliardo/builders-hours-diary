@@ -218,7 +218,17 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  print("InkWell cklciked");
+                  Navigator.push(
+                    context,
+                    CustomPageRoute(
+                      child: EditAccountValuesWrapper(
+                        uid: _auth.user!.uid!,
+                        appBarTitle: "Payment Frequency",
+                        propertyValue: _user.paymentFrequency!,
+                      ),
+                      parent: AccountScreen(),
+                    ),
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

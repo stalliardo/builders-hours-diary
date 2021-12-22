@@ -19,7 +19,13 @@ class _EditAccountValuesWrapperState extends State<EditAccountValuesWrapper> {
   Widget _loadScreens(String editingType) {
     switch (editingType) {
       case "Full Name":
-        return EditStringProperty(uid: widget.uid, propertyValue: widget.propertyValue!);
+        return EditStringProperty(
+          uid: widget.uid,
+          propertyValue: widget.propertyValue!,
+          propertyName: "fullName",
+          labelText: "Full Name",
+          isSelectMenu: false,
+        );
 
       case "Email":
         return EditEmail(uid: widget.uid, propertyValue: widget.propertyValue!);
@@ -41,7 +47,13 @@ class _EditAccountValuesWrapperState extends State<EditAccountValuesWrapper> {
         );
 
       case "Payment Frequency":
-        break;
+        return EditStringProperty(
+          uid: widget.uid,
+          propertyValue: widget.propertyValue!,
+          propertyName: "paymentFrequency",
+          labelText: "Payment Frequency",
+          isSelectMenu: true,
+        );
       case "Retention Amount":
         return NumericWageInfo(
           uid: widget.uid,
@@ -51,7 +63,7 @@ class _EditAccountValuesWrapperState extends State<EditAccountValuesWrapper> {
         );
     }
 
-    return Text("Hello");
+    return Text("Hello"); // TODO
   }
 
   @override
