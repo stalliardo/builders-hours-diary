@@ -27,46 +27,48 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(
-              height: 140,
-              child: DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.blueGrey,
-                ),
-                child: Text('Drawer Header'),
-              ),
-            ),
-            ListTile(
-              title: Text(
-                'Account',
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AccountScreen(),
+      drawer: widget.emailVerified
+          ? Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  Container(
+                    height: 140,
+                    child: DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey,
+                      ),
+                      child: Text('Drawer Header'),
+                    ),
                   ),
-                );
-              },
-            ),
-            ListTile(
-              title: Text(
-                'Tools',
-                style: TextStyle(color: Colors.white),
+                  ListTile(
+                    title: Text(
+                      'Account',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AccountScreen(),
+                        ),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    title: Text(
+                      'Tools',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
               ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      ),
+            )
+          : null,
       body: widget.emailVerified ? EmailVerified() : EmailNotVerified(),
     );
   }

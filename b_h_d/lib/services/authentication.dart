@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:b_h_d/models/user.dart';
 import 'package:b_h_d/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -100,5 +99,37 @@ class Auth extends ChangeNotifier {
 
   Future<void> sendVerificationEmail() async {
     return await _auth.currentUser?.sendEmailVerification();
+  }
+
+  Future<StatusCode> reAuthUser(String email, String password) async {
+    print("data from reauth user: email: $email, password: $password");
+    try {
+      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } catch (e) {
+      print("error on reauth. Error: $e");
+      return StatusCode.ERROR;
+    }
+
+    return StatusCode.SUCCESS;
+  }
+
+  Future<String> updateUsersEmail(String email, String password, String newEmail) async {
+    try {
+      await reAuthUser(email, password);
+      await _auth.currentUser!.updateEmail(newEmail);
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      print(e.message);
+      if (e.code == "requires-recent-login") {
+        return "An error occurred! Please check your details and try again.";
+      }
+      return e.message!;
+    } catch (e) {
+      return "An error occurred";
+    }
+
+    return "Success";
   }
 }

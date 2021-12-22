@@ -34,32 +34,35 @@ class _EmailNotVerifiedState extends State<EmailNotVerified> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 90,
-          ),
-          Text(
-            "Awaiting email verification. You might need to check your junk folder.",
-            style: TextStyle(color: Colors.white),
-          ),
-          SizedBox(
-            height: 60,
-          ),
-          CircularProgressIndicator(
-            value: null,
-          ),
-          SizedBox(
-            height: 40,
-          ),
-          TextButton(
-            onPressed: () async {
-              await Auth().sendVerificationEmail();
-            },
-            child: Text("Resend email"),
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Center(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 90,
+            ),
+            Text(
+              "Awaiting email verification. You might need to check your junk folder.",
+              style: TextStyle(color: Colors.white),
+            ),
+            SizedBox(
+              height: 60,
+            ),
+            CircularProgressIndicator(
+              value: null,
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            TextButton(
+              onPressed: () async {
+                await Auth().sendVerificationEmail();
+              },
+              child: Text("Resend email"),
+            ),
+          ],
+        ),
       ),
     );
   }

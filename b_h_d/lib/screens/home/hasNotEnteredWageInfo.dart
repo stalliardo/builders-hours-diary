@@ -184,16 +184,6 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
             ],
           ),
         ),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AccountScreen(),
-                ),
-              );
-            },
-            child: Text("Go to account"))
       ],
     );
   }
