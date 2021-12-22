@@ -132,4 +132,22 @@ class Auth extends ChangeNotifier {
 
     return "Success";
   }
+
+  Future<String> changeUsersPassword(String password, String newPassword) async {
+    try {
+      await reAuthUser(_auth.currentUser!.email!, password);
+      await _auth.currentUser!.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      print(e.message);
+      if (e.code == "requires-recent-login") {
+        return "An error occurred! Please check your details and try again.";
+      }
+      return e.message!;
+    } catch (e) {
+      return "An error occurred";
+    }
+
+    return "Success";
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:b_h_d/screens/account/changePassword.dart';
 import 'package:b_h_d/screens/account/editEmail.dart';
 import 'package:b_h_d/screens/account/editStringProperty.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,9 @@ import 'package:flutter/material.dart';
 class EditAccountValuesWrapper extends StatefulWidget {
   final String uid;
   final String appBarTitle;
-  final String propertyValue;
+  final String? propertyValue;
 
-  EditAccountValuesWrapper({Key? key, required this.uid, required this.appBarTitle, required this.propertyValue}) : super(key: key);
+  EditAccountValuesWrapper({Key? key, required this.uid, required this.appBarTitle, this.propertyValue}) : super(key: key);
 
   @override
   _EditAccountValuesWrapperState createState() => _EditAccountValuesWrapperState();
@@ -17,12 +18,13 @@ class _EditAccountValuesWrapperState extends State<EditAccountValuesWrapper> {
   Widget _loadScreens(String editingType) {
     switch (editingType) {
       case "Full Name":
-        return EditStringProperty(uid: widget.uid, propertyValue: widget.propertyValue);
+        return EditStringProperty(uid: widget.uid, propertyValue: widget.propertyValue!);
 
       case "Email":
-        return EditEmail(uid: widget.uid, propertyValue: widget.propertyValue);
+        return EditEmail(uid: widget.uid, propertyValue: widget.propertyValue!);
         break;
-      case "Change Password":
+      case "Password":
+        return ChangePassword(uid: widget.uid);
         break;
       case "Day Rate":
         break;

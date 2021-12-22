@@ -114,7 +114,10 @@ class _AccountScreenState extends State<AccountScreen> {
                   Navigator.push(
                     context,
                     CustomPageRoute(
-                      child: ChangePassword(),
+                      child: EditAccountValuesWrapper(
+                        uid: _auth.user!.uid!,
+                        appBarTitle: "Password",
+                      ),
                       parent: AccountScreen(),
                     ),
                   );
