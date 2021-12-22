@@ -78,22 +78,39 @@ class MyDatabase {
   }
 
   MyUser userDataFromSnapshot(DocumentSnapshot snapshot) {
-    Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
+    Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>;
 
-    return MyUser.full(
-      uid: snapshot.id, //?
-      fullName: data["fullName"],
-      email: data["email"],
-      hasEnteredWageInfo: data["hasEnteredWageInfo"],
-      dayRate: data["dayRate"].toDouble(),
-      hoursInWorkDay: data["hoursInWorkDay"].toDouble(),
-      retentionAmount: data["retentionAmount"].toDouble(),
-      paymentFrequency: data["paymentFrequency"],
-    );
+    print("data fromStream = $data");
+
+    // ignore: unnecessary_null_comparison
+    if (data != null) {
+      return MyUser.full(
+        uid: snapshot.id, //?
+        fullName: data["fullName"],
+        email: data["email"],
+        hasEnteredWageInfo: data["hasEnteredWageInfo"],
+        dayRate: data["dayRate"].toDouble(),
+        hoursInWorkDay: data["hoursInWorkDay"].toDouble(),
+        retentionAmount: data["retentionAmount"].toDouble(),
+        paymentFrequency: data["paymentFrequency"],
+      );
+    } else {
+      return MyUser();
+    }
   }
 
   // Get user doc stream
   Stream<MyUser> userData(String uid) {
     return _firestore.collection("users").doc(uid).snapshots().map(userDataFromSnapshot);
+  }
+
+  Future<String> deleteUserData(uid) async {
+    try {
+      await _firestore.collection("users").doc(uid).delete();
+    } catch (e) {
+      return "Error";
+    }
+
+    return "Success";
   }
 }

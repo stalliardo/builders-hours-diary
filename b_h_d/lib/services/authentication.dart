@@ -23,19 +23,19 @@ class Auth extends ChangeNotifier {
 
   Future<void> init() async {
     _auth.userChanges().listen((user) async {
+      print("************ auht.listen called");
       if (user != null) {
+        print("************ user is not null called");
+
         _loginState = ApplicationLoginState.loggedIn;
+        _user = await MyDatabase().getUser(user.uid);
 
-        if (!user.emailVerified) {
-          print("Email has not been verified yet");
-        } else {
-          print("Email is verifieed");
+        if (user.emailVerified) {
           _loginState = ApplicationLoginState.emailVerified;
-
-          // TODO check this is okay here......
-          _user = await MyDatabase().getUser(user.uid);
         }
       } else {
+        print("************ user is null called");
+
         _loginState = ApplicationLoginState.loggedOut;
         _user = null;
       }
@@ -137,6 +137,33 @@ class Auth extends ChangeNotifier {
     try {
       await reAuthUser(_auth.currentUser!.email!, password);
       await _auth.currentUser!.updatePassword(newPassword);
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      print(e.message);
+      if (e.code == "requires-recent-login") {
+        return "An error occurred! Please check your details and try again.";
+      }
+      return e.message!;
+    } catch (e) {
+      return "An error occurred";
+    }
+
+    return "Success";
+  }
+
+  Future<String> deleteUsersAccount(String password) async {
+    try {
+      StatusCode _response = await reAuthUser(_auth.currentUser!.email!, password);
+
+      if (_response == StatusCode.SUCCESS) {
+        String _deleteResponse = await MyDatabase().deleteUserData(_auth.currentUser!.uid);
+
+        if (_deleteResponse == "Success") {
+          await _auth.currentUser!.delete();
+        }
+      } else {
+        return "An error occured!. Please try again.";
+      }
     } on FirebaseAuthException catch (e) {
       print(e.code);
       print(e.message);
