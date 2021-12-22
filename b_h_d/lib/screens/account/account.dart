@@ -146,7 +146,17 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  print("InkWell cklciked");
+                  Navigator.push(
+                    context,
+                    CustomPageRoute(
+                      child: EditAccountValuesWrapper(
+                        uid: _auth.user!.uid!,
+                        appBarTitle: "Day Rate",
+                        propertyValue: _user.dayRate.toString(),
+                      ),
+                      parent: AccountScreen(),
+                    ),
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -172,7 +182,17 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  print("InkWell cklciked");
+                  Navigator.push(
+                    context,
+                    CustomPageRoute(
+                      child: EditAccountValuesWrapper(
+                        uid: _auth.user!.uid!,
+                        appBarTitle: "Hours in Work Day",
+                        propertyValue: _user.hoursInWorkDay.toString(),
+                      ),
+                      parent: AccountScreen(),
+                    ),
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -224,7 +244,17 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               InkWell(
                 onTap: () {
-                  print("InkWell cklciked");
+                  Navigator.push(
+                    context,
+                    CustomPageRoute(
+                      child: EditAccountValuesWrapper(
+                        uid: _auth.user!.uid!,
+                        appBarTitle: "Retention Amount",
+                        propertyValue: _user.retentionAmount.toString(),
+                      ),
+                      parent: AccountScreen(),
+                    ),
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

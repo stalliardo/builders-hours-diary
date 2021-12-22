@@ -1,6 +1,7 @@
 import 'package:b_h_d/screens/account/changePassword.dart';
 import 'package:b_h_d/screens/account/editEmail.dart';
 import 'package:b_h_d/screens/account/editStringProperty.dart';
+import 'package:b_h_d/screens/account/numericWageInfo.dart';
 import 'package:flutter/material.dart';
 
 class EditAccountValuesWrapper extends StatefulWidget {
@@ -22,18 +23,32 @@ class _EditAccountValuesWrapperState extends State<EditAccountValuesWrapper> {
 
       case "Email":
         return EditEmail(uid: widget.uid, propertyValue: widget.propertyValue!);
-        break;
       case "Password":
         return ChangePassword(uid: widget.uid);
-        break;
       case "Day Rate":
-        break;
+        return NumericWageInfo(
+          uid: widget.uid,
+          propertyValue: widget.propertyValue!,
+          propertyName: "dayRate",
+          labelText: "Day Rate",
+        );
       case "Hours in Work Day":
-        break;
+        return NumericWageInfo(
+          uid: widget.uid,
+          propertyValue: widget.propertyValue!,
+          propertyName: "hoursInWorkDay",
+          labelText: "Hours in Work Day",
+        );
+
       case "Payment Frequency":
         break;
-      case "Retention Amount %":
-        break;
+      case "Retention Amount":
+        return NumericWageInfo(
+          uid: widget.uid,
+          propertyValue: widget.propertyValue!,
+          propertyName: "retentionAmount",
+          labelText: "Retention Amount %",
+        );
     }
 
     return Text("Hello");
