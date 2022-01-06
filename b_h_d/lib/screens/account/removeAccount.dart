@@ -1,3 +1,4 @@
+import 'package:b_h_d/screens/root.dart';
 import 'package:b_h_d/screens/welcome.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:b_h_d/styles/text/formStyles.dart';
@@ -82,6 +83,7 @@ class _RemoveAccountState extends State<RemoveAccount> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.red),
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             String _result = await _auth.deleteUsersAccount(password);
@@ -92,11 +94,11 @@ class _RemoveAccountState extends State<RemoveAccount> {
                                 ),
                               );
                             } else {
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => WelcomeScreen()), (route) => false);
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
                             }
                           }
                         },
-                        child: Text("Save"),
+                        child: Text("Delete"),
                       ),
                     )
                   ],

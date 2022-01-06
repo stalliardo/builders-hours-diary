@@ -146,7 +146,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      print("Valid called!!!!");
                       String _result = await _auth.changeUsersPassword(currentPassword, newPassword);
                       if (_result != "Success") {
                         ScaffoldMessenger.of(context).showSnackBar(

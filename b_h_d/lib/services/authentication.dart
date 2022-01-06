@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:b_h_d/models/user.dart';
 import 'package:b_h_d/services/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -13,9 +14,9 @@ class Auth extends ChangeNotifier {
   ApplicationLoginState _loginState = ApplicationLoginState.loggedOut;
   ApplicationLoginState get loginState => _loginState;
 
-  MyUser? _user;
+  late MyUser _user;
 
-  MyUser? get user => _user;
+  MyUser get user => _user;
 
   Auth() {
     init();
@@ -23,10 +24,7 @@ class Auth extends ChangeNotifier {
 
   Future<void> init() async {
     _auth.userChanges().listen((user) async {
-      print("************ auht.listen called");
       if (user != null) {
-        print("************ user is not null called");
-
         _loginState = ApplicationLoginState.loggedIn;
         _user = await MyDatabase().getUser(user.uid);
 
@@ -34,10 +32,8 @@ class Auth extends ChangeNotifier {
           _loginState = ApplicationLoginState.emailVerified;
         }
       } else {
-        print("************ user is null called");
-
         _loginState = ApplicationLoginState.loggedOut;
-        _user = null;
+        _user = MyUser(accountCreated: Timestamp.now());
       }
       notifyListeners();
     });
@@ -46,7 +42,7 @@ class Auth extends ChangeNotifier {
   Future<StatusCode> signOut() async {
     try {
       await _auth.signOut();
-      _user = null;
+      _user = MyUser(accountCreated: Timestamp.now());
     } catch (e) {
       print(e);
       return StatusCode.ERROR;
@@ -62,7 +58,6 @@ class Auth extends ChangeNotifier {
 
       return StatusCode.SUCCESS;
     } catch (e) {
-      print("Error signing user in. Error: $e");
       return StatusCode.ERROR;
     }
   }
@@ -71,11 +66,13 @@ class Auth extends ChangeNotifier {
     try {
       UserCredential credential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
-      MyUser _user = MyUser(email: email, fullName: fullName, uid: credential.user?.uid);
+      MyUser _user = MyUser(email: email, fullName: fullName, uid: credential.user!.uid, accountCreated: Timestamp.now());
 
       await MyDatabase().addUser(_user);
 
-      await sendVerificationEmail();
+      // TODO re-enable below
+
+      // await sendVerificationEmail();
 
       return StatusCode.SUCCESS;
     } catch (e) {
@@ -102,7 +99,6 @@ class Auth extends ChangeNotifier {
   }
 
   Future<StatusCode> reAuthUser(String email, String password) async {
-    print("data from reauth user: email: $email, password: $password");
     try {
       AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
 

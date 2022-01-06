@@ -51,116 +51,129 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
+  Stream<MyUser>? _userDataStream;
+  late Auth _auth;
+
   @override
   Widget build(BuildContext context) {
-    Auth _auth = Provider.of<Auth>(context);
+    _auth = Provider.of<Auth>(context);
+    if (_auth.user.uid != "") {
+      _userDataStream = MyDatabase().userData(_auth.user.uid);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("My Account"),
-      ),
-      body: StreamBuilder<MyUser>(
-        stream: MyDatabase().userData(_auth.user!.uid!),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            MyUser _user = snapshot.data!;
-            return ListView(
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              children: <Widget>[
-                Text(
-                  "Account Information",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                _passDataToAccountValueWrapper(_user, _auth.user!.uid!, "Full Name", _user.fullName!, "Full Name"),
-                SizedBox(
-                  height: 20,
-                ),
-                _passDataToAccountValueWrapper(_user, _auth.user!.uid!, "Email", _user.email!, "Email"),
-                SizedBox(
-                  height: 20,
-                ),
-                _passDataToAccountValueWrapper(_user, _auth.user!.uid!, "Password", "", "Change Password"),
-                Divider(
-                  height: 30,
-                  color: Colors.grey[400],
-                ),
-                Text(
-                  "Wage Information",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                _passDataToAccountValueWrapper(_user, _auth.user!.uid!, "Day Rate", _user.dayRate!.toString(), "Day Rate"),
-                SizedBox(
-                  height: 20,
-                ),
-                _passDataToAccountValueWrapper(_user, _auth.user!.uid!, "Hours in Work Day", _user.hoursInWorkDay!.toString(), "Hours in Work Day"),
-                SizedBox(
-                  height: 20,
-                ),
-                _passDataToAccountValueWrapper(_user, _auth.user!.uid!, "Payment Frequency", _user.paymentFrequency!, "Payment Frequency"),
-                SizedBox(
-                  height: 20,
-                ),
-                _passDataToAccountValueWrapper(_user, _auth.user!.uid!, "Retention Amount", _user.retentionAmount!.toString(), "Retention Amount %"),
-                Divider(
-                  height: 30,
-                  color: Colors.grey[400],
-                ),
-                Text(
-                  "Account Control",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: <Widget>[
-                    Container(
-                      width: 150,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RemoveAccount(),
-                              ));
-                        },
-                        child: Text("Delete Account"),
-                        style: ElevatedButton.styleFrom(primary: Colors.red),
-                      ),
-                    )
-                  ],
-                )
-              ],
-            );
-          } else {
-            return Center(
-              child: Column(
+      return Scaffold(
+        appBar: AppBar(
+          title: Text("My Account"),
+        ),
+        body: StreamBuilder<MyUser>(
+          stream: _userDataStream,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator(
+                value: null,
+              );
+            } else if (snapshot.connectionState == ConnectionState.active && snapshot.hasData) {
+              MyUser _user = snapshot.data!;
+
+              return ListView(
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 children: <Widget>[
-                  SizedBox(
-                    height: 100,
-                  ),
                   Text(
-                    "Loading your data....",
-                    style: TextStyle(color: Colors.white),
+                    "Account Information",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  CircularProgressIndicator(
-                    value: null,
+                  _passDataToAccountValueWrapper(_user, _auth.user.uid, "Full Name", _user.fullName, "Full Name"),
+                  SizedBox(
+                    height: 20,
                   ),
+                  _passDataToAccountValueWrapper(_user, _auth.user.uid, "Email", _user.email, "Email"),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _passDataToAccountValueWrapper(_user, _auth.user.uid, "Password", "", "Change Password"),
+                  Divider(
+                    height: 30,
+                    color: Colors.grey[400],
+                  ),
+                  Text(
+                    "Wage Information",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _passDataToAccountValueWrapper(_user, _auth.user.uid, "Day Rate", _user.dayRate.toString(), "Day Rate"),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _passDataToAccountValueWrapper(_user, _auth.user.uid, "Hours in Work Day", _user.hoursInWorkDay.toString(), "Hours in Work Day"),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _passDataToAccountValueWrapper(_user, _auth.user.uid, "Payment Frequency", _user.paymentFrequency, "Payment Frequency"),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  _passDataToAccountValueWrapper(_user, _auth.user.uid, "Retention Amount", _user.retentionAmount.toString(), "Retention Amount %"),
+                  Divider(
+                    height: 30,
+                    color: Colors.grey[400],
+                  ),
+                  Text(
+                    "Account Control",
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Container(
+                        width: 150,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => RemoveAccount(),
+                                ));
+                          },
+                          child: Text("Delete Account"),
+                          style: ElevatedButton.styleFrom(primary: Colors.red),
+                        ),
+                      )
+                    ],
+                  )
                 ],
-              ),
-            );
-          }
-        },
-      ),
-    );
+              );
+            } else {
+              return Center(
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 100,
+                    ),
+                    Text(
+                      "Loading your data....",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    CircularProgressIndicator(
+                      value: null,
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
+      );
+    } else {
+      return SizedBox.shrink();
+    }
   }
 }

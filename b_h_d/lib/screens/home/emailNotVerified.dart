@@ -20,7 +20,6 @@ class _EmailNotVerifiedState extends State<EmailNotVerified> {
     super.initState();
 
     _timer = Timer.periodic((Duration(seconds: 10)), (timer) async {
-      print("Timer called");
       FirebaseAuth _auth = FirebaseAuth.instance;
       await _auth.currentUser?.reload();
     });

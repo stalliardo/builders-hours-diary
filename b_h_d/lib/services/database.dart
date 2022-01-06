@@ -9,7 +9,7 @@ class MyDatabase {
   Future<StatusCode> addUser(MyUser user) async {
     try {
       await _firestore.collection("users").doc(user.uid).set({
-        "fullName": StringFormatting.toTitleCase(user.fullName!),
+        "fullName": StringFormatting.toTitleCase(user.fullName),
         "email": user.email,
         "accountCreated": Timestamp.now(),
         "dayRate": 0.0,
@@ -26,10 +26,8 @@ class MyDatabase {
     return StatusCode.SUCCESS;
   }
 
-  // Convert below to a stream
-
   Future<MyUser> getUser(String uid) async {
-    MyUser user = MyUser();
+    MyUser user = MyUser(accountCreated: Timestamp.now());
 
     try {
       DocumentSnapshot _doc = await _firestore.collection("users").doc(uid).get();
@@ -37,14 +35,14 @@ class MyDatabase {
       Map<String, dynamic> data = _doc.data() as Map<String, dynamic>;
 
       user.uid = uid;
-      user.fullName = data["fullName"];
-      user.email = data["email"];
-      user.accountCreated = data["accountCreated"];
-      user.hasEnteredWageInfo = data["hasEnteredWageInfo"];
-      user.dayRate = data["dayRate"].toDouble();
-      user.hoursInWorkDay = data["hoursInWorkDay"].toDouble();
-      user.retentionAmount = data["retentionAmount"].toDouble();
-      user.paymentFrequency = data["paymentFrequency"];
+      user.fullName = data["fullName"] ?? "";
+      user.email = data["email"] ?? "";
+      user.accountCreated = data["accountCreated"] ?? Timestamp.now();
+      user.hasEnteredWageInfo = data["hasEnteredWageInfo"] ?? false;
+      user.dayRate = data["dayRate"].toDouble() ?? 0.0;
+      user.hoursInWorkDay = data["hoursInWorkDay"].toDouble() ?? 0.0;
+      user.retentionAmount = data["retentionAmount"].toDouble() ?? 0.0;
+      user.paymentFrequency = data["paymentFrequency"] ?? "";
     } catch (e) {
       print(e);
     }
@@ -53,7 +51,6 @@ class MyDatabase {
   }
 
   Future<StatusCode> addInitialUserWageInfo(String uid, String paymentFrequency, double dayRate, double hoursInWorkDay, double retentionAmount) async {
-    print("addinitial called");
     try {
       await _firestore
           .collection("users")
@@ -66,8 +63,6 @@ class MyDatabase {
   }
 
   Future<StatusCode> updateSingleField(String uid, Map<String, Object> data) async {
-    // data should look like {"fullName": "Dazza S"} or {"dayRate": 0.0}
-    print("uid = $uid");
     try {
       await _firestore.collection("users").doc(uid).update(data);
     } catch (e) {
@@ -80,26 +75,23 @@ class MyDatabase {
   MyUser userDataFromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>;
 
-    print("data fromStream = $data");
-
-    // ignore: unnecessary_null_comparison
-    if (data != null) {
+    if (snapshot.data() != null) {
       return MyUser.full(
-        uid: snapshot.id, //?
-        fullName: data["fullName"],
-        email: data["email"],
-        hasEnteredWageInfo: data["hasEnteredWageInfo"],
-        dayRate: data["dayRate"].toDouble(),
-        hoursInWorkDay: data["hoursInWorkDay"].toDouble(),
-        retentionAmount: data["retentionAmount"].toDouble(),
-        paymentFrequency: data["paymentFrequency"],
+        uid: snapshot.id,
+        fullName: data["fullName"] ?? "",
+        email: data["email"] ?? "",
+        hasEnteredWageInfo: data["hasEnteredWageInfo"] ?? false,
+        dayRate: data["dayRate"].toDouble() ?? 0.0,
+        hoursInWorkDay: data["hoursInWorkDay"].toDouble() ?? 0.0,
+        retentionAmount: data["retentionAmount"].toDouble() ?? 0.0,
+        paymentFrequency: data["paymentFrequency"] ?? "",
+        accountCreated: data["accountCreated"] ?? Timestamp.now(),
       );
     } else {
-      return MyUser();
+      return MyUser(accountCreated: Timestamp.now());
     }
   }
 
-  // Get user doc stream
   Stream<MyUser> userData(String uid) {
     return _firestore.collection("users").doc(uid).snapshots().map(userDataFromSnapshot);
   }

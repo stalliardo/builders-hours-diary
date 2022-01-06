@@ -159,9 +159,7 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  print("onPressed called");
                   if (_formKey.currentState!.validate()) {
-                    print("Form is valid called");
                     StatusCode _result = await MyDatabase().addInitialUserWageInfo(widget.uid, dropDownValue, double.parse(dayRate!), double.parse(hoursInWorkDay!), double.parse(retentionAmount!));
 
                     if (_result == StatusCode.ERROR) {

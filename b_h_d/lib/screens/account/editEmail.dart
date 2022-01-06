@@ -94,7 +94,6 @@ class _EditEmailState extends State<EditEmail> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      print("Valid called!!!!");
                       String _result = await _auth.updateUsersEmail(widget.propertyValue, password, newEmail);
                       if (_result != "Success") {
                         ScaffoldMessenger.of(context).showSnackBar(

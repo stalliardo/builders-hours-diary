@@ -31,7 +31,6 @@ class _RootState extends State<Root> {
         //   value: DBStream().getCurrentUser(currentUid),
         //   child: LoggedIn(),
         // );
-        print("Logged in called from root");
 
         screenLoader = Home(
           emailVerified: false,
