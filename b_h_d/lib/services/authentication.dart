@@ -70,9 +70,7 @@ class Auth extends ChangeNotifier {
 
       await MyDatabase().addUser(_user);
 
-      // TODO re-enable below
-
-      // await sendVerificationEmail();
+      await sendVerificationEmail();
 
       return StatusCode.SUCCESS;
     } catch (e) {

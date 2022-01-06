@@ -3,6 +3,7 @@ import 'package:b_h_d/screens/home/emailNotVerified.dart';
 import 'package:b_h_d/screens/home/emailVerified.dart';
 import 'package:b_h_d/services/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   bool emailVerified = false;
@@ -15,6 +16,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    Auth _auth = Provider.of<Auth>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Home"),
@@ -27,7 +30,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      drawer: widget.emailVerified
+      drawer: _auth.user.hasEnteredWageInfo
           ? Drawer(
               child: ListView(
                 padding: EdgeInsets.zero,

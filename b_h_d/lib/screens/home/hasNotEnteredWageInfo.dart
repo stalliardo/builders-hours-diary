@@ -34,7 +34,7 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.fromLTRB(14, 20, 14, 30),
+      padding: EdgeInsets.fromLTRB(14, 30, 14, 30),
       children: <Widget>[
         Text(
           "Wage Information",
@@ -42,11 +42,14 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
           textAlign: TextAlign.center,
         ),
         SizedBox(
-          height: 60,
+          height: 40,
         ),
-        Text(
-          "Your wage info has not yet been added! You will be unable to use the diary and other tools until this is entered.",
-          style: MyFormStyles.textFormStyle(),
+        Center(
+          child: Text(
+            "Your wage info has not yet been added! You will be unable to use the diary and other tools until this is entered.",
+            style: MyFormStyles.textFormStyle(),
+            textAlign: TextAlign.center,
+          ),
         ),
         SizedBox(
           height: 40,
@@ -169,12 +172,6 @@ class _HasNotEnteredWageInfoState extends State<HasNotEnteredWageInfo> {
                         ),
                       );
                     }
-
-                    // TODO parse to doubles before sending to the db - DONE
-
-                    // Now get the values for each and call some update method in the database - DONE
-                    // Also need a stream for listening to changes on the user model - DONE
-                    // And what about checking for dirty values when the user presses back???
                   }
                 },
                 child: Text("Save Information"),

@@ -28,12 +28,6 @@ class _EmailVerifiedState extends State<EmailVerified> {
       child: Consumer<MyUser>(
         builder: (context, _userData, _) {
           return _userData.hasEnteredWageInfo ? HasEnteredWageInfo() : HasNotEnteredWageInfo(uid: _auth.user.uid);
-          // Check if the user.uid exists first
-          // if (_userData.uid != null) {
-          //   return _userData.hasEnteredWageInfo ? HasEnteredWageInfo() : HasNotEnteredWageInfo(uid: _auth.user!.uid);
-          // } else {
-          //   return WelcomeScreen();
-          // }
         },
       ),
     );
