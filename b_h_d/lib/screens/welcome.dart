@@ -1,0 +1,84 @@
+import 'package:b_h_d/screens/authentication.dart/login.dart';
+import 'package:b_h_d/screens/authentication.dart/signUp.dart';
+import 'package:b_h_d/utils/customPageRoute.dart';
+import 'package:flutter/material.dart';
+
+class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView(
+        children: <Widget>[
+          Center(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 90,
+                ),
+                Container(
+                  width: 200,
+                  child: Image(
+                    image: AssetImage("assets/images/ot_logo.png"),
+                  ),
+                ),
+                SizedBox(
+                  height: 70,
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: "Welcome to only trades ",
+                    style: TextStyle(color: Colors.white, fontSize: 20, fontFamily: "ReadexPro", fontWeight: FontWeight.bold),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: "Diary",
+                        style: TextStyle(
+                          color: Colors.orange[400],
+                        ),
+                      ),
+                    ],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  width: 300,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        CustomPageRoute(
+                          child: Login(),
+                          parent: WelcomeScreen(),
+                        ),
+                      );
+                    },
+                    child: Text("Login"),
+                  ),
+                ),
+                Container(
+                  width: 300,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        CustomPageRoute(
+                          child: SignUp(),
+                          parent: WelcomeScreen(),
+                        ),
+                      );
+                    },
+                    child: Text("Register"),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
